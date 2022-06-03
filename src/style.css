@@ -1,0 +1,66 @@
+.Fundi---UI/UX-App-Design-1-rgba { color: rgba(63, 1, 41, 1); }
+.Fundi---UI/UX-App-Design-2-rgba { color: rgba(89, 1, 65, 1); }
+.Fundi---UI/UX-App-Design-3-rgba { color: rgba(242, 239, 234, 1); }
+.Fundi---UI/UX-App-Design-4-rgba { color: rgba(242, 82, 46, 1); }
+.Fundi---UI/UX-App-Design-5-rgba { color: rgba(242, 64, 48, 1); }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.cabecalho,
+.rodape {
+    height: 15vh;
+}
+
+.cabecalho > h1 {
+    text-align: center;
+}
+
+.caixa-abas {
+    display: flex;
+    justify-content: center;
+}
+
+.aba-cadastro,
+.aba-relatorio {
+    position: relative;
+    text-align: center;
+}
+
+.caixa-centro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    height: auto;
+    margin-top: 30px;
+}
+
+.input-nome,
+.input-quantidade,
+.input-forma-pagamento,
+.btn-enviar {
+    width: 100%;
+    height: 30px;
+    margin-top: 15px;
+}
+
+.div-checkbox {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+li {
+    color: black;
+}
