@@ -17,6 +17,9 @@ const app = initializeApp(firebaseConfig);
 const body = document.querySelector('.container-main');
 const cliente = [];
 
+const lista = document.createElement('ul');
+
+
 function enviarRegistroCompra(nome, quantidade, formaPagamento) {
     const db = getDatabase();
     push(ref(db, 'clientes/'), {
@@ -50,9 +53,8 @@ function criaCaixaCentro() {
 function criarRelatorio(element) {
     const body = document.querySelector('.container-main');
     const caixa = document.querySelector('.caixa-centro');
-    const lista = document.createElement('ul');
-    const itemLista = document.createElement('li');
 
+    const itemLista = document.createElement('li');
     itemLista.innerHTML = element[1] + ' ' + element[2] + ' ' + element[0];
     lista.appendChild(itemLista);
     caixa.appendChild(lista);
