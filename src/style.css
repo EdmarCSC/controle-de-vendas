@@ -14,7 +14,7 @@
     flex-direction: column;
     align-items: center;
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
 }
 
 .cabecalho,
@@ -43,21 +43,23 @@
     width: 80%;
     height: auto;
     margin-top: 50px;
+    overflow-y: scroll;
 }
 
 .caixa-grid {
     align-self: center;
-    width: 80%;
+    width: 100%;
     height: auto;
 }
 
 .linha-grid,
 .header-table {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 0.5fr 1fr;
 }
 
 .header-table {
+    width: 100%;
     margin-bottom: 20px;
 }
 
@@ -73,9 +75,10 @@
 .input-quantidade,
 .input-forma-pagamento,
 .btn-enviar {
-    width: 100%;
+    width: 90%;
     height: 30px;
     margin-top: 15px;
+    align-self: center;
 }
 
 .div-checkbox {

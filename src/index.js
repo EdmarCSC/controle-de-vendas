@@ -55,6 +55,11 @@ document.addEventListener('click', element => {
 
     if (abaClicada.classList.contains('btn-cadastro')) criaFormCadastro();
     if (abaClicada.classList.contains('btn-enviar'))  capiturarDados();
-    if (abaClicada.classList.contains('btn-relatorio')) getDados();
+    if (abaClicada.classList.contains('btn-relatorio')) {
+        criaDiv();
+        headerTable();
+        getDados();
+    }
     if (abaClicada.classList.contains('checkbox'))  console.log(abaClicada.value);
+    console.log(abaClicada);
 })

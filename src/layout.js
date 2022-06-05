@@ -1,3 +1,5 @@
+const body = document.querySelector('.container-main');
+
 export function linparInputs() {
     const nomeCli = document.querySelector('.input-nome');
     const quantidade = document.querySelector('.input-quantidade');
@@ -8,7 +10,7 @@ export function linparInputs() {
     formaPagamento.value = '';
 }
 
-export function criaDiv(body) {
+export function criaDiv() {
     const caixa = document.querySelector('.caixa-centro');
     if (caixa != null) {
         caixa.remove();        
@@ -23,6 +25,11 @@ function criaTabela(classe) {
     const criaCaixa = document.createElement('div');
     criaCaixa.classList.add(classe);
     return criaCaixa;   
+}
+
+function criaLinhaHorizontal() {
+    const linha = document.createElement('hr');
+    return linha
 }
 
 export function criaCheckBox() {
@@ -86,9 +93,8 @@ export function headerTable() {
 }
 
 export function imprimeDados(element) {
-    const body = document.querySelector('.container-main');
-    const caixa = criaDiv(body);
-    headerTable();
+    const caixa = document.querySelector('.caixa-centro');
+    const linhaHorizontal = criaLinhaHorizontal();
     const tabela = criaTabela('caixa-grid');
     const linha = criaTabela('linha-grid');
     
@@ -113,5 +119,6 @@ export function imprimeDados(element) {
 
     tabela.appendChild(linha);
     caixa.appendChild(tabela);
+    caixa.appendChild(linhaHorizontal);
     body.appendChild(caixa);
 }
