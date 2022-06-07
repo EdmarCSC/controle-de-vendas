@@ -79,8 +79,7 @@ export function criaFormCadastro() {
 }
 
 export function headerTable() {
-    const body = document.querySelector('.caixa-centro');
-    const titleHeader = ['Nome', 'Quantidade', 'Pagamento'];
+    const titleHeader = ['Nome', 'Quantidade', 'Pagamento', 'Data'];
     const hr = criaTabela('header-table');
     
     titleHeader.forEach(el => {
@@ -100,25 +99,32 @@ export function imprimeDados(element) {
     
     const colNome = criaTabela('coluna-grid');
     const nome = document.createElement('p');
-    nome.innerHTML = element[1];
+    nome.innerHTML = element[2];
     colNome.appendChild(nome);
 
     const colQuantidade = criaTabela('coluna-grid');
     const quantidade = document.createElement('p');
-    quantidade.innerHTML = element[2];
+    quantidade.innerHTML = element[3];
     colQuantidade.appendChild(quantidade);
 
     const colFormaPagamento = criaTabela('coluna-grid');
     const formaPagamento = document.createElement('p');
-    formaPagamento.innerHTML = element[0];
+    formaPagamento.innerHTML = element[1];
     colFormaPagamento.appendChild(formaPagamento);
+
+    const colData = criaTabela('coluna-grid');
+    const data = document.createElement('p');
+    data.innerHTML = element[0];
+    colData.appendChild(data);
 
     linha.appendChild(colNome);
     linha.appendChild(colQuantidade);
     linha.appendChild(colFormaPagamento);
+    linha.appendChild(colData);
 
     tabela.appendChild(linha);
     caixa.appendChild(tabela);
     caixa.appendChild(linhaHorizontal);
     body.appendChild(caixa);
+
 }

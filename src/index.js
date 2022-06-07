@@ -23,7 +23,8 @@ function enviarRegistroCompra(nome, quantidade, formaPagamento) {
     push(ref(db, 'clientes/'), {
         nomeCli: nome,
         quantidade: quantidade,
-        formaPagamento: formaPagamento
+        formaPagamento: formaPagamento,
+        data: getDate()
     });
 }
 
@@ -50,11 +51,29 @@ function getDados() {
 });
 }
 
+function addZero (zero) {
+    if (zero < 10) {
+        zero = '0'+zero;
+    }
+
+    return zero;
+}
+
+function getDate() {
+    const date = new Date();
+    const dia = date.getDay();
+    const mes = date.getMonth();
+    const ano = date.getFullYear();
+
+    const dataAtual = `${dia}/${mes}/${ano}`
+    return dataAtual
+}
+
 document.addEventListener('click', element => {
     const abaClicada = element.target;
 
+    if (abaClicada.classList.contains('btn-enviar')) capiturarDados();
     if (abaClicada.classList.contains('btn-cadastro')) criaFormCadastro();
-    if (abaClicada.classList.contains('btn-enviar'))  capiturarDados();
     if (abaClicada.classList.contains('btn-relatorio')) {
         criaDiv();
         headerTable();
@@ -63,3 +82,5 @@ document.addEventListener('click', element => {
     if (abaClicada.classList.contains('checkbox'))  console.log(abaClicada.value);
     console.log(abaClicada);
 })
+
+
