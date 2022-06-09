@@ -58,7 +58,7 @@ h1 {
 .btn-relatorio {
     color: rgba(116, 117, 232, 1);
     background-color: white;
-    padding: 10px;
+    padding: 15px;
 }
 
 .caixa-centro {
@@ -66,7 +66,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     padding: 1em;
-    margin-top: 95px;
+    margin-top: 125px;
     width: 90%;
     height: auto;
     overflow: scroll;
@@ -93,12 +93,12 @@ h2 {
 
 .header-table {
     position: fixed;
-    margin-top: 90px;
+    margin-top: 115px;
     width: 90%;
     border-radius: 3px;
     color: aliceblue;
     align-content: center;
-    height: 15px;
+    height: 20px;
     padding: 2px;
     background-color: rgb(116, 118, 232);
 }
@@ -120,6 +120,10 @@ p {
 
 hr {
     background-color: rgba(116, 179, 232, 1);;
+}
+
+.input-nome {
+    margin-top: 20px;
 }
 
 .input-nome,
