@@ -83,4 +83,7 @@ document.addEventListener('click', element => {
     console.log(abaClicada);
 })
 
+document.addEventListener('load', element => {
+    console.log('Rodando!');
+})
 

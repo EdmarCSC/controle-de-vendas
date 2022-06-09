@@ -12,9 +12,11 @@ export function linparInputs() {
 
 export function criaDiv() {
     const caixa = document.querySelector('.caixa-centro');
-    if (caixa != null) {
-        caixa.remove();        
-    }
+    const header = document.querySelector('.header-table');
+    
+    if (caixa != null) caixa.remove();        
+    if (header != null) header.remove();        
+    
     const criaCaixa = document.createElement('div');
     criaCaixa.classList.add('caixa-centro');
     body.appendChild(criaCaixa);
