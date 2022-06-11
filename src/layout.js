@@ -82,11 +82,12 @@ export function criaFormCadastro() {
 }
 
 export function headerTable() {
-    const titleHeader = ['Nome', 'Quantidade', 'Pagamento', 'Data'];
+    const titleHeader = ['codigo', 'Nome', 'Quantidade', 'Pagamento', 'Data'];
     const hr = criaTabela('header-table');
     
     titleHeader.forEach(el => {
         const cl = criaTabela('coluna-grid');
+        cl.classList.add(el)
         cl.innerHTML = el;
         hr.appendChild(cl);
     });
@@ -94,12 +95,18 @@ export function headerTable() {
     body.appendChild(hr);
 }
 
-export function imprimeDados(element) {
+export function imprimeDados(element, childSnapshot) {
     const caixa = document.querySelector('.caixa-centro');
     const linhaHorizontal = criaLinhaHorizontal();
     const tabela = criaTabela('caixa-grid');
     const linha = criaTabela('linha-grid');
     
+    const key = criaTabela('coluna-grid');
+    const keyValue = document.createElement('p');
+    keyValue.classList.add('key');
+    keyValue.innerHTML = childSnapshot;
+    key.appendChild(keyValue);
+
     const colNome = criaTabela('coluna-grid');
     const nome = document.createElement('p');
     nome.innerHTML = element[2];
@@ -120,6 +127,7 @@ export function imprimeDados(element) {
     data.innerHTML = element[0];
     colData.appendChild(data);
 
+    linha.appendChild(key);
     linha.appendChild(colNome);
     linha.appendChild(colQuantidade);
     linha.appendChild(colFormaPagamento);
@@ -139,7 +147,7 @@ function calc(valor) {
 
 export function qVendas(quantidade) {
     const divComponent = criaDiv();
-    const divQVendas = criaTabela('qVendas');
+    const divQVendas = criaTabela('q-vendas');
     divQVendas.innerHTML = `Total de vendas: ${calc(quantidade)};` 
     divComponent.appendChild(divQVendas);
     body.appendChild(divComponent);

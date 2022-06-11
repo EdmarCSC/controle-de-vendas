@@ -48,7 +48,7 @@ function getDados(valorChamada) {
                 qVendas(+childData[3]);
                 return
             }
-            imprimeDados(childData);
+            imprimeDados(childData, childSnapshot.key);
         });
     }, {
             onlyOnce: true
@@ -93,16 +93,3 @@ document.addEventListener('click', element => {
 window.onload = function() {
     getDados('pageLoad');
 };
-  
-/* get(dbRef, `clientes/`).then((snapshot) => {
-    if (snapshot.exists()) {
-      const element = Object.values(snapshot.val());
-      element.forEach(el => {
-          console.log(el);
-      })
-    } else {
-      console.log("No data available");
-    }
-  }).catch((error) => {
-    console.error(error);
-  }); */
