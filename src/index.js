@@ -25,7 +25,7 @@ function enviarRegistroCompra(nome, quantidade, formaPagamento) {
         quantidade: quantidade,
         formaPagamento: formaPagamento,
         data: getDate()
-    });
+    }); 
 }
 
 function capiturarDados() {
@@ -61,11 +61,14 @@ function addZero (zero) {
 
 function getDate() {
     const date = new Date();
-    const dia = date.getDay();
-    const mes = date.getMonth();
+    let da = 1;
+    da += date.getMonth();
+    const dia = addZero(date.getDate());
+    const mes = addZero(da);
     const ano = date.getFullYear();
 
     const dataAtual = `${dia}/${mes}/${ano}`
+    console.log(dataAtual)
     return dataAtual
 }
 
@@ -81,9 +84,5 @@ document.addEventListener('click', element => {
     }
     if (abaClicada.classList.contains('checkbox'))  console.log(abaClicada.value);
     console.log(abaClicada);
-})
-
-document.addEventListener('load', element => {
-    console.log('Rodando!');
 })
 
