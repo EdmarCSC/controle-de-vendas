@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import './style.css';
-import { linparInputs, criaFormCadastro, imprimeDados, headerTable, criaDiv } from './layout.js';
+import { linparInputs, criaFormCadastro, imprimeDados, headerTable, criaDiv, qVendas } from './layout.js';
 
 import { initializeApp } from 'firebase/app'; 
-import { getDatabase, ref, push, onValue, onChildAdded, onChildChanged, onChildRemoved } from 'firebase/database';
+import { getDatabase, ref, push, onValue, get, onChildAdded, onChildChanged, onChildRemoved } from 'firebase/database';
 
 const firebaseConfig = {
     apiKey: "AIzaSyC76YqX7DUKjJcl2WtzoDwugLw4a2CFXGA",
@@ -16,7 +16,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-const cliente = [];
+const histVendas = [];
 
 function enviarRegistroCompra(nome, quantidade, formaPagamento) {
     const db = getDatabase();
@@ -34,21 +34,25 @@ function capiturarDados() {
     const formaPagamento = document.querySelector('.input-forma-pagamento');
     enviarRegistroCompra(nomeCli.value, quantidade.value, formaPagamento.value);
     linparInputs();
+    qVendas(+quantidade.value);
 }
 
-function getDados() {        
+function getDados(valorChamada) {        
     const db = getDatabase();
     const dbRef = ref(db, 'clientes/');
     onValue(dbRef, (snapshot) => {
         snapshot.forEach((childSnapshot) => {
-        const childData = Object.values(childSnapshot.val());
-        imprimeDados(childData);
-    // ...
+            const childData = Object.values(childSnapshot.val());
+            if (valorChamada === 'pageLoad') {
+                histVendas.push(childData);
+                qVendas(+childData[3]);
+                return
+            }
+            imprimeDados(childData);
+        });
+    }, {
+            onlyOnce: true
     });
-
-}, {
-  onlyOnce: true
-});
 }
 
 function addZero (zero) {
@@ -86,3 +90,19 @@ document.addEventListener('click', element => {
     console.log(abaClicada);
 })
 
+window.onload = function() {
+    getDados('pageLoad');
+};
+  
+/* get(dbRef, `clientes/`).then((snapshot) => {
+    if (snapshot.exists()) {
+      const element = Object.values(snapshot.val());
+      element.forEach(el => {
+          console.log(el);
+      })
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  }); */

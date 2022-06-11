@@ -1,4 +1,5 @@
 const body = document.querySelector('.container-main');
+let val = 0;
 
 export function linparInputs() {
     const nomeCli = document.querySelector('.input-nome');
@@ -129,4 +130,17 @@ export function imprimeDados(element) {
     caixa.appendChild(linhaHorizontal);
     body.appendChild(caixa);
 
+}
+
+function calc(valor) {
+    val += valor;
+    return val;
+}
+
+export function qVendas(quantidade) {
+    const divComponent = criaDiv();
+    const divQVendas = criaTabela('qVendas');
+    divQVendas.innerHTML = `Total de vendas: ${calc(quantidade)};` 
+    divComponent.appendChild(divQVendas);
+    body.appendChild(divComponent);
 }
