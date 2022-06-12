@@ -80,13 +80,14 @@ export function criaFormCadastro() {
     divCentro.appendChild(nomeCli);
     divCentro.appendChild(quantidade);
     divCentro.appendChild(formaPagamento);
+    divCentro.appendChild(inputStatus);
     divCentro.appendChild(btnEnviar);
 
     body.appendChild(divCentro);
 }
 
 export function headerTable() {
-    const titleHeader = ['codigo', 'Nome', 'Quantidade', 'Pagamento', 'Data'];
+    const titleHeader = ['codigo', 'Nome', 'Quant.', 'Pag.', 'Data', 'Status'];
     const hr = criaTabela('header-table');
     
     titleHeader.forEach(el => {
@@ -126,15 +127,21 @@ export function imprimeDados(element, childSnapshot) {
     formaPagamento.innerHTML = element[1];
     colFormaPagamento.appendChild(formaPagamento);
 
+    const colStatus = criaTabela('coluna-grid');
+    const status = document.createElement('p');
+    status.innerHTML = element[0];
+    colStatus.appendChild(status);
+
     const colData = criaTabela('coluna-grid');
     const data = document.createElement('p');
-    data.innerHTML = element[0];
+    data.innerHTML = element[4];
     colData.appendChild(data);
 
     linha.appendChild(key);
     linha.appendChild(colNome);
     linha.appendChild(colQuantidade);
     linha.appendChild(colFormaPagamento);
+    linha.appendChild(colStatus);
     linha.appendChild(colData);
 
     tabela.appendChild(linha);
@@ -165,6 +172,7 @@ export function criaFormUpdate(dadosCliente) {
     const inputStatus = document.createElement('input');
     inputStatus.classList.add('input-status');
     inputStatus.setAttribute('placeholder', 'Status');
+    inputStatus.value = dadosCliente.status;
 
     const btnEnviar = document.createElement('button');
     btnEnviar.classList.add('btn-editar');
@@ -187,7 +195,7 @@ function calc(valor) {
 export function qVendas(quantidade) {
     const divComponent = criaDiv();
     const divQVendas = criaTabela('q-vendas');
-    divQVendas.innerHTML = `Total de vendas: ${calc(quantidade)};` 
+    divQVendas.innerHTML = `Total de vendas: ${calc(quantidade)}` 
     divComponent.appendChild(divQVendas);
     body.appendChild(divComponent);
 }

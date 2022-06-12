@@ -3,7 +3,7 @@ import './style.css';
 import { linparInputs, criaFormCadastro, criaFormUpdate, imprimeDados, headerTable, criaDiv, qVendas } from './layout.js';
 
 import { initializeApp } from 'firebase/app'; 
-import { getDatabase, ref, push, onValue, get, child } from 'firebase/database';
+import { getDatabase, ref, push, onValue, get, child, update } from 'firebase/database';
 
 const firebaseConfig = {
     apiKey: "AIzaSyC76YqX7DUKjJcl2WtzoDwugLw4a2CFXGA",
@@ -17,22 +17,51 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const histVendas = [];
+let idCli;
 
-function enviarRegistroCompra(nome, quantidade, formaPagamento) {
+
+function enviarRegistroCompra(nome, quantidade, formaPagamento, status) {
+    console.log('Cadastro');
     const db = getDatabase(app);
     push(ref(db, 'clientes/'), {
         nomeCli: nome,
         quantidade: quantidade,
         formaPagamento: formaPagamento,
+        status: status,
         data: getDate()
     }); 
 }
 
-function capiturarDados() {
+function updateStatusCliente(name, quantidade, fPagamento, status) {
+    console.log('Update');
+  const db = getDatabase();
+
+  const postData = {
+    nomeCli: name,
+    quantidade: quantidade,
+    formaPagamento: fPagamento,
+    status: status,
+    data: getDate()
+  };
+
+  const newPostKey = push(child(ref(db), 'posts')).key;
+
+  const updates = {};
+  updates['clientes/' + idCli ] = postData;
+
+  return update(ref(db), updates);
+}
+
+function capiturarDados(alvo) {
     const nomeCli = document.querySelector('.input-nome');
     const quantidade = document.querySelector('.input-quantidade');
     const formaPagamento = document.querySelector('.input-forma-pagamento');
-    enviarRegistroCompra(nomeCli.value, quantidade.value, formaPagamento.value);
+    const status = document.querySelector('.input-status');
+    if (alvo === 'cadastro')enviarRegistroCompra(nomeCli.value, quantidade.value, 
+                        formaPagamento.value, status.value);
+                    
+    if (alvo === 'update')updateStatusCliente(nomeCli.value, quantidade.value, 
+                                    formaPagamento.value, status.value);
     linparInputs();
     qVendas(+quantidade.value);
 }
@@ -42,6 +71,7 @@ function getCliente(key) {
     get(child(dbRef, `clientes/${key}`)).then((snapshot) => {
     if (snapshot.exists()) {
         criaFormUpdate(snapshot.val());
+        idCli = key;
     } else {
         console.log("No data available");
     }
@@ -86,7 +116,6 @@ function getDate() {
     const ano = date.getFullYear();
 
     const dataAtual = `${dia}/${mes}/${ano}`
-    console.log(dataAtual)
     return dataAtual
 }
 
@@ -98,7 +127,8 @@ function getKey(element) {
 document.addEventListener('click', element => {
     const abaClicada = element.target;
 
-    if (abaClicada.classList.contains('btn-enviar')) capiturarDados();
+    if (abaClicada.classList.contains('btn-enviar')) capiturarDados('cadastro');
+    if (abaClicada.classList.contains('btn-editar')) capiturarDados('update');
     if (abaClicada.classList.contains('btn-cadastro')) criaFormCadastro();
     if (abaClicada.classList.contains('btn-relatorio')) {
         criaDiv();
