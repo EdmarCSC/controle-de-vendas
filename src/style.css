@@ -77,7 +77,6 @@ h1 {
     width: 88%;
     height: auto;
     overflow-y: scroll;
-    background-color: rgba(116, 180, 232, 0.045);
 }
 
 .q-vendas {
@@ -118,8 +117,18 @@ h2 {
 
 .linha-grid {
     border-bottom: 1px solid rgba(137, 43, 226, 0.362);
-    column-gap: 30px;
+    border-radius: 3px;
+    column-gap: 10px;
     height: auto;
+    background-color: rgba(116, 180, 232, 0.045);
+}
+
+.linha-grid:hover {
+    background-color: rgba(116, 180, 232, 0.101);
+}
+
+.linha-grid:active {
+    background-color: rgba(116, 180, 232, 0.139);
 }
 
 .coluna-grid {
@@ -147,7 +156,8 @@ hr {
 
 .input-nome,
 .input-quantidade,
-.input-forma-pagamento {
+.input-forma-pagamento,
+.input-status {
     color: rgba(116, 118, 232, 0.63);
     place-content: rgba(116, 118, 232, 0.63);
 }
@@ -155,7 +165,9 @@ hr {
 .input-nome,
 .input-quantidade,
 .input-forma-pagamento,
-.btn-enviar {
+.input-status,
+.btn-enviar,
+.btn-editar {
     width: 90%;
     max-width: 400px;
     height: 40px;
@@ -165,13 +177,16 @@ hr {
     font-size: 18px;
 }
 
-.btn-enviar {
+.btn-enviar,
+.btn-editar {
     color: aliceblue;
 }
 
 .input-quantidade,
 .input-forma-pagamento,
-.btn-enviar {
+.input-status,
+.btn-enviar,
+.btn-editar {
     margin-top: 25px;
 }
 
@@ -192,6 +207,12 @@ li {
 
 }
 
-.btn-enviar {
+.btn-enviar,
+.btn-editar {
     background-color: rgba(116, 117, 232, 1);
+}
+
+.btn-enviar,
+.btn-editar:active {
+    background-color: rgb(103, 105, 223);
 }

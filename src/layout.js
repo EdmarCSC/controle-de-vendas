@@ -69,6 +69,10 @@ export function criaFormCadastro() {
     formaPagamento.classList.add('input-forma-pagamento');
     formaPagamento.setAttribute('placeholder', 'Forma de pagamento');
 
+    const inputStatus = document.createElement('input');
+    inputStatus.classList.add('input-status');
+    inputStatus.setAttribute('placeholder', 'Status');
+
     const btnEnviar = document.createElement('button');
     btnEnviar.classList.add('btn-enviar');
     btnEnviar.innerHTML = 'Enviar';
@@ -138,6 +142,41 @@ export function imprimeDados(element, childSnapshot) {
     caixa.appendChild(linhaHorizontal);
     body.appendChild(caixa);
 
+}
+
+export function criaFormUpdate(dadosCliente) {
+    const divCentro = criaDiv();
+
+    const nomeCli = document.createElement('input');
+    nomeCli.classList.add('input-nome')
+    nomeCli.setAttribute('placeholder', 'Nome do Cliente');    
+    nomeCli.value = dadosCliente.nomeCli;
+
+    const quantidade = document.createElement('input');
+    quantidade.classList.add('input-quantidade')
+    quantidade.setAttribute('placeholder', 'Quantidade');
+    quantidade.value = dadosCliente.quantidade;
+
+    const formaPagamento = document.createElement('input');
+    formaPagamento.classList.add('input-forma-pagamento');
+    formaPagamento.setAttribute('placeholder', 'Forma de pagamento');
+    formaPagamento.value = dadosCliente.formaPagamento;
+
+    const inputStatus = document.createElement('input');
+    inputStatus.classList.add('input-status');
+    inputStatus.setAttribute('placeholder', 'Status');
+
+    const btnEnviar = document.createElement('button');
+    btnEnviar.classList.add('btn-editar');
+    btnEnviar.innerHTML = 'Editar';
+
+    divCentro.appendChild(nomeCli);
+    divCentro.appendChild(quantidade);
+    divCentro.appendChild(formaPagamento);
+    divCentro.appendChild(inputStatus);
+    divCentro.appendChild(btnEnviar);
+
+    body.appendChild(divCentro);
 }
 
 function calc(valor) {

@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import './style.css';
-import { linparInputs, criaFormCadastro, imprimeDados, headerTable, criaDiv, qVendas } from './layout.js';
+import { linparInputs, criaFormCadastro, criaFormUpdate, imprimeDados, headerTable, criaDiv, qVendas } from './layout.js';
 
 import { initializeApp } from 'firebase/app'; 
-import { getDatabase, ref, push, onValue, get, onChildAdded, onChildChanged, onChildRemoved } from 'firebase/database';
+import { getDatabase, ref, push, onValue, get, child } from 'firebase/database';
 
 const firebaseConfig = {
     apiKey: "AIzaSyC76YqX7DUKjJcl2WtzoDwugLw4a2CFXGA",
@@ -19,7 +19,7 @@ const app = initializeApp(firebaseConfig);
 const histVendas = [];
 
 function enviarRegistroCompra(nome, quantidade, formaPagamento) {
-    const db = getDatabase();
+    const db = getDatabase(app);
     push(ref(db, 'clientes/'), {
         nomeCli: nome,
         quantidade: quantidade,
@@ -37,8 +37,22 @@ function capiturarDados() {
     qVendas(+quantidade.value);
 }
 
+function getCliente(key) {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `clientes/${key}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+        criaFormUpdate(snapshot.val());
+    } else {
+        console.log("No data available");
+    }
+    }).catch((error) => {
+    console.error(error);
+    });
+
+}
+
 function getDados(valorChamada) {        
-    const db = getDatabase();
+    const db = getDatabase(app);
     const dbRef = ref(db, 'clientes/');
     onValue(dbRef, (snapshot) => {
         snapshot.forEach((childSnapshot) => {
@@ -76,6 +90,11 @@ function getDate() {
     return dataAtual
 }
 
+function getKey(element) {
+    const Key = element.firstChild.innerHTML;
+    getCliente(Key);
+}
+
 document.addEventListener('click', element => {
     const abaClicada = element.target;
 
@@ -87,7 +106,9 @@ document.addEventListener('click', element => {
         getDados();
     }
     if (abaClicada.classList.contains('checkbox'))  console.log(abaClicada.value);
-    console.log(abaClicada);
+    if (abaClicada.classList.contains('caixa-grid') ||
+        (abaClicada.classList.contains('linha-grid')) ||
+        (abaClicada.classList.contains('coluna-grid')) ) getKey(abaClicada.firstChild);
 })
 
 window.onload = function() {
