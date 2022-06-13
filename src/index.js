@@ -18,6 +18,7 @@ const app = initializeApp(firebaseConfig);
 
 const histVendas = [];
 let idCli;
+let dClienteOfUp;
 
 
 function enviarRegistroCompra(nome, quantidade, formaPagamento, status) {
@@ -41,9 +42,9 @@ function updateStatusCliente(name, quantidade, fPagamento, status) {
     quantidade: quantidade,
     formaPagamento: fPagamento,
     status: status,
-    data: getDate()
+    data: dClienteOfUp.data
   };
-
+  console.log(postData.data)
   const newPostKey = push(child(ref(db), 'posts')).key;
 
   const updates = {};
@@ -72,6 +73,7 @@ function getCliente(key) {
     if (snapshot.exists()) {
         criaFormUpdate(snapshot.val());
         idCli = key;
+        dClienteOfUp = snapshot.val();
     } else {
         console.log("No data available");
     }
