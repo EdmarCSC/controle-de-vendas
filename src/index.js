@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import './style.css';
-import { linparInputs, criaFormCadastro, criaFormUpdate, imprimeDados, headerTable, criaDiv, qVendas } from './layout.js';
+import { linparInputs, criaFormCadastro, criaFormUpdate, imprimeDados, headerTable, criaDiv, qVendas,
+        clienteDevedor } from './layout.js';
 
 import { initializeApp } from 'firebase/app'; 
 import { getDatabase, ref, push, onValue, get, child, update } from 'firebase/database';
@@ -22,7 +23,6 @@ let dClienteOfUp;
 
 
 function enviarRegistroCompra(nome, quantidade, formaPagamento, status) {
-    console.log('Cadastro');
     const db = getDatabase(app);
     push(ref(db, 'clientes/'), {
         nomeCli: nome,
@@ -34,7 +34,6 @@ function enviarRegistroCompra(nome, quantidade, formaPagamento, status) {
 }
 
 function updateStatusCliente(name, quantidade, fPagamento, status) {
-    console.log('Update');
   const db = getDatabase();
 
   const postData = {
@@ -44,7 +43,6 @@ function updateStatusCliente(name, quantidade, fPagamento, status) {
     status: status,
     data: dClienteOfUp.data
   };
-  console.log(postData.data)
   const newPostKey = push(child(ref(db), 'posts')).key;
 
   const updates = {};
@@ -92,6 +90,7 @@ function getDados(valorChamada) {
             if (valorChamada === 'pageLoad') {
                 histVendas.push(childData);
                 qVendas(+childData[3]);
+                clienteDevedor(childData[4]);
                 return
             }
             imprimeDados(childData, childSnapshot.key);

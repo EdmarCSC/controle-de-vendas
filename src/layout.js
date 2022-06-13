@@ -1,5 +1,6 @@
 const body = document.querySelector('.container-main');
 let val = 0;
+const clientesDevedores = [];
 
 export function linparInputs() {
     const nomeCli = document.querySelector('.input-nome');
@@ -194,8 +195,20 @@ function calc(valor) {
 
 export function qVendas(quantidade) {
     const divComponent = criaDiv();
+    const divContent = criaTabela('div-cliente-devedor');
     const divQVendas = criaTabela('q-vendas');
-    divQVendas.innerHTML = `Total de vendas: ${calc(quantidade)}` 
+    divQVendas.innerHTML = `Total de vendas: ${calc(quantidade)}`
+    divContent.innerHTML = `Clientes em débito: ${clientesDevedores.length}`;
+ 
     divComponent.appendChild(divQVendas);
+    divComponent.appendChild(divContent);
+
     body.appendChild(divComponent);
+}
+
+export function clienteDevedor(status) {
+    if (status != 'Pago' ) {
+        clientesDevedores.push(status);
+        console.log(clientesDevedores.length);
+    }    
 }

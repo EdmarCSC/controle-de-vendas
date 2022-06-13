@@ -79,7 +79,9 @@ h1 {
     overflow-y: scroll;
 }
 
-.q-vendas {
+.q-vendas,
+.div-cliente-devedor {
+    margin-bottom: 4px;
     color: rgba(58, 28, 87, 0.362); 
 }
 
