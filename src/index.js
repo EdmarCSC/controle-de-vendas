@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import './style.css';
 import { linparInputs, criaFormCadastro, criaFormUpdate, imprimeDados, headerTable, criaDiv, qVendas,
-        clienteDevedor } from './layout.js';
+        clienteDevedor, abrirMenu, fecharMenu } from './layout.js';
 
 import { initializeApp } from 'firebase/app'; 
 import { getDatabase, ref, push, onValue, get, child, update } from 'firebase/database';
@@ -130,8 +130,12 @@ document.addEventListener('click', element => {
 
     if (abaClicada.classList.contains('btn-enviar')) capiturarDados('cadastro');
     if (abaClicada.classList.contains('btn-editar')) capiturarDados('update');
-    if (abaClicada.classList.contains('btn-cadastro')) criaFormCadastro();
+    if (abaClicada.classList.contains('btn-cadastro')) {
+        fecharMenu();
+        criaFormCadastro();
+    }
     if (abaClicada.classList.contains('btn-relatorio')) {
+        fecharMenu();
         criaDiv();
         headerTable();
         getDados();
@@ -140,6 +144,8 @@ document.addEventListener('click', element => {
     if (abaClicada.classList.contains('caixa-grid') ||
         (abaClicada.classList.contains('linha-grid')) ||
         (abaClicada.classList.contains('coluna-grid')) ) getKey(abaClicada.firstChild);
+    if (abaClicada.classList.contains('line-menu')) abrirMenu(abaClicada);
+    if (abaClicada.classList.contains('line-btn-fechar')) fecharMenu();
 })
 
 window.onload = function() {

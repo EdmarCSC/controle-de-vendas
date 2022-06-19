@@ -15,20 +15,74 @@ export function linparInputs() {
 export function criaDiv() {
     const caixa = document.querySelector('.caixa-centro');
     const header = document.querySelector('.header-table');
-    
-    if (caixa != null) caixa.remove();        
-    if (header != null) header.remove();        
-    
+
+    if (caixa != null) caixa.remove();
+    if (header != null) header.remove();
+
     const criaCaixa = document.createElement('div');
     criaCaixa.classList.add('caixa-centro');
     body.appendChild(criaCaixa);
     return criaCaixa;
 }
 
+function criaBtnFecharMenu() {
+    const btnFechar = criaTabela('btn-fechar');
+    const line1 = criaTabela('line-btn-fechar');
+    const line2 = criaTabela('line-btn-fechar');
+
+    line1.style.transform = 'rotate(45deg)';
+    line2.style.transform = 'rotate(-45deg) translate(6px, -7px)';
+
+    btnFechar.appendChild(line1);
+    btnFechar.appendChild(line2);
+
+    return btnFechar;
+}
+
+function criaTitulo(titulo, classe) {
+    const title = document.createElement('h2');
+    title.classList.add('titulo-menu');
+    title.classList.add(classe);
+    title.textContent = titulo;
+    title.style.transitionDelay = '6s';
+    return title
+}
+
+function criaTituloMenu() {
+    const titulos = criaTabela('titulos-menu');
+    const registrarVenda = criaTitulo('Registrar venda', 'btn-cadastro');
+    const visualizarVendas = criaTitulo('Visualizar vendas', 'btn-relatorio');
+
+    titulos.appendChild(registrarVenda);
+    titulos.appendChild(visualizarVendas);
+
+    return titulos
+}
+
+export function abrirMenu() {
+    const menu = document.querySelector('.menu');
+    menu.style.marginRight = 0;
+    menu.style.transitionDuration = '1s';
+    
+    menu.appendChild(criaBtnFecharMenu());
+    menu.appendChild(criaTituloMenu());
+
+}
+
+export function fecharMenu() {
+    const btnMenu = document.querySelector('.btn-fechar');
+    btnMenu.remove();
+    const menuTitulos = document.querySelector('.titulos-menu');
+    menuTitulos.remove();
+    const menu = document.querySelector('.menu');
+    menu.style.marginRight = '-1000%';
+    menu.style.transitionDuration = '1s';    
+}
+
 function criaTabela(classe) {
     const criaCaixa = document.createElement('div');
     criaCaixa.classList.add(classe);
-    return criaCaixa;   
+    return criaCaixa;
 }
 
 function criaLinhaHorizontal() {
@@ -44,12 +98,12 @@ export function criaCheckBox() {
         label.textContent = el;
         const formaPagamento = document.createElement('input');
         formaPagamento.setAttribute('type', 'checkbox');
-        formaPagamento.classList.add('checkbox');        
+        formaPagamento.classList.add('checkbox');
         divCheckbox.appendChild(label);
         divCheckbox.appendChild(formaPagamento);
     })
     divCheckbox.classList.add('div-checkbox');
-    
+
     return divCheckbox;
 }
 
@@ -60,7 +114,7 @@ export function criaFormCadastro() {
 
     const nomeCli = document.createElement('input');
     nomeCli.classList.add('input-nome')
-    nomeCli.setAttribute('placeholder', 'Nome do Cliente');    
+    nomeCli.setAttribute('placeholder', 'Nome do Cliente');
 
     const quantidade = document.createElement('input');
     quantidade.classList.add('input-quantidade')
@@ -90,7 +144,7 @@ export function criaFormCadastro() {
 export function headerTable() {
     const titleHeader = ['codigo', 'Nome', 'Quant.', 'Pag.', 'Data', 'Status'];
     const hr = criaTabela('header-table');
-    
+
     titleHeader.forEach(el => {
         const cl = criaTabela('coluna-grid');
         cl.classList.add(el)
@@ -106,7 +160,7 @@ export function imprimeDados(element, childSnapshot) {
     const linhaHorizontal = criaLinhaHorizontal();
     const tabela = criaTabela('caixa-grid');
     const linha = criaTabela('linha-grid');
-    
+
     const key = criaTabela('coluna-grid');
     const keyValue = document.createElement('p');
     keyValue.classList.add('key');
@@ -157,7 +211,7 @@ export function criaFormUpdate(dadosCliente) {
 
     const nomeCli = document.createElement('input');
     nomeCli.classList.add('input-nome')
-    nomeCli.setAttribute('placeholder', 'Nome do Cliente');    
+    nomeCli.setAttribute('placeholder', 'Nome do Cliente');
     nomeCli.value = dadosCliente.nomeCli;
 
     const quantidade = document.createElement('input');
@@ -199,7 +253,7 @@ export function qVendas(quantidade) {
     const divQVendas = criaTabela('q-vendas');
     divQVendas.innerHTML = `Total de vendas: ${calc(quantidade)}`
     divContent.innerHTML = `Clientes em débito: ${clientesDevedores.length}`;
- 
+
     divComponent.appendChild(divQVendas);
     divComponent.appendChild(divContent);
 
@@ -207,8 +261,7 @@ export function qVendas(quantidade) {
 }
 
 export function clienteDevedor(status) {
-    if (status != 'Pago' ) {
+    if (status != 'Pago') {
         clientesDevedores.push(status);
-        console.log(clientesDevedores.length);
-    }    
+    }
 }

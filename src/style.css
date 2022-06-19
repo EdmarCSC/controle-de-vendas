@@ -27,19 +27,67 @@
 }
 
 .cabecalho {
-    position: fixed;
+    display: flex;
+    position: absolute;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    z-index: 3;
+    height: 70px;
+    z-index: 1;
     margin-bottom: 10px;
     background-color: rgba(116, 117, 232, 1);
 }
 
 h1 {
+    flex-shrink: 1em;
     color: aliceblue;
+    align-self: center;
+    margin: auto;
 }
 
 .cabecalho > h1 {
     text-align: center;
+}
+
+.btn-menu {
+    height: auto;
+    order: 2;
+    margin-right: 7%;
+}
+
+.line-menu,
+.line-btn-fechar {
+    width: 30px;
+    height: 4px;
+    margin-bottom: 5px;
+    background-color: aliceblue;
+}
+
+.btn-fechar {
+    margin: 30px;
+}
+
+.menu {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    margin-right: -1000%;
+    z-index: 4;
+    background-color: rgba(67, 69, 171, 0.882);
+}
+
+.titulos-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: auto;
+    width: 80%;
+    height: 20%;
+
+}
+
+.titulo-menu {
+    color: aliceblue;
 }
 
 .caixa-abas {
@@ -63,8 +111,7 @@ h1 {
 .btn-relatorio {
     flex-shrink: 2em;
     flex-grow: 2em;
-    color: rgba(116, 117, 232, 1);
-    background-color: white;
+    color: rgb(199, 199, 235);
     padding: 15px;
     height: 50px;
 }
