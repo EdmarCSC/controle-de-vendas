@@ -28,7 +28,7 @@
 
 .cabecalho {
     display: flex;
-    position: absolute;
+    position: fixed;
     justify-content: space-between;
     align-items: center;
     width: 100%;
@@ -51,8 +51,7 @@ h1 {
 
 .btn-menu {
     height: auto;
-    order: 2;
-    margin-right: 7%;
+    margin-right: 20px;
 }
 
 .line-menu,
@@ -70,8 +69,8 @@ h1 {
 .menu {
     width: 100%;
     height: 100vh;
-    position: relative;
-    margin-right: -1000%;
+    position: absolute;
+    margin-left: -3000px;
     z-index: 4;
     background-color: rgba(67, 69, 171, 0.882);
 }
@@ -90,25 +89,17 @@ h1 {
     color: aliceblue;
 }
 
-.caixa-abas {
-    display: flex;
-    justify-content: center;
+.header-secundario {
     position: fixed;
     width: 100%;
-    height: 50px;
+    height: 65px;
+    margin-top: 60px;
+    background-color: aliceblue;
 }
 
-.aba-cadastro,
-.aba-relatorio {
-    margin-top: 50px;
-    position: relative;
-    text-align: center;
-    width: 50%;
-    height: 50px;
-}
-
-.btn-cadastro,
-.btn-relatorio {
+.btn-form-vendas,
+.btn-form-relatorio,
+.btn-form-produtos {
     flex-shrink: 2em;
     flex-grow: 2em;
     color: rgb(199, 199, 235);
@@ -199,6 +190,7 @@ hr {
     background-color: rgba(116, 179, 232, 1);;
 }
 
+.input-descricao,
 .input-nome {
     margin-top: 20px;
 }
@@ -206,17 +198,25 @@ hr {
 .input-nome,
 .input-quantidade,
 .input-forma-pagamento,
-.input-status {
+.input-produto,
+.input-descricao,
+.input-valor,
+.input-status,
+.div-checkbox {
     color: rgba(116, 118, 232, 0.63);
     place-content: rgba(116, 118, 232, 0.63);
 }
 
 .input-nome,
+.input-produto,
 .input-quantidade,
 .input-forma-pagamento,
 .input-status,
+.input-descricao,
+.input-valor,
 .btn-enviar,
-.btn-editar {
+.btn-editar,
+.div-checkbox {
     width: 90%;
     max-width: 400px;
     height: 40px;
@@ -232,10 +232,14 @@ hr {
 }
 
 .input-quantidade,
+.input-produto,
 .input-forma-pagamento,
 .input-status,
+.input-descricao,
+.input-valor,
 .btn-enviar,
-.btn-editar {
+.btn-editar 
+.div-checkbox {
     margin-top: 25px;
 }
 
@@ -243,6 +247,7 @@ hr {
     display: flex;
     justify-content: center;
     gap: 1em;
+    overflow-x: scroll;
 }
 
 ul {

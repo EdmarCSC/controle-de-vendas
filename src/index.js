@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import './style.css';
-import { linparInputs, criaFormCadastro, criaFormUpdate, imprimeDados, headerTable, criaDiv, qVendas,
+import { linparInputs, criaFormCadVendas, criaFormCadProdutos, criaFormUpdate, 
+        imprimeDados, headerTable, criaDiv, qVendas,
         clienteDevedor, abrirMenu, fecharMenu } from './layout.js';
 
 import { initializeApp } from 'firebase/app'; 
@@ -20,15 +21,25 @@ const app = initializeApp(firebaseConfig);
 const histVendas = [];
 let idCli;
 let dClienteOfUp;
+let dProdutoOfUp;
 
 
-function enviarRegistroCompra(nome, quantidade, formaPagamento, status) {
+function postVendas(nome, quantidade, formaPagamento, status) {
     const db = getDatabase(app);
     push(ref(db, 'clientes/'), {
         nomeCli: nome,
         quantidade: quantidade,
         formaPagamento: formaPagamento,
         status: status,
+        data: getDate()
+    }); 
+}
+
+function postProdutos(descricao, valor) {
+    const db = getDatabase(app);
+    push(ref(db, 'produtos/'), {
+        descricao: descricao,
+        valor: valor,
         data: getDate()
     }); 
 }
@@ -51,18 +62,48 @@ function updateStatusCliente(name, quantidade, fPagamento, status) {
   return update(ref(db), updates);
 }
 
-function capiturarDados(alvo) {
+function updateProdutos(descricao, valor) {
+    const db = getDatabase();
+  
+    const postData = {
+      descricao: descricao,
+      valor: valor,
+      data: dProdutoOfUp.data
+    };
+    const newPostKey = push(child(ref(db), 'posts')).key;
+  
+    const updates = {};
+    updates['clientes/' + idCli ] = postData;
+  
+    return update(ref(db), updates);
+  }
+
+function capiturarDadosVendas(alvo) {
     const nomeCli = document.querySelector('.input-nome');
+    const produto = document.querySelector('.input-produto')
     const quantidade = document.querySelector('.input-quantidade');
     const formaPagamento = document.querySelector('.input-forma-pagamento');
     const status = document.querySelector('.input-status');
-    if (alvo === 'cadastro')enviarRegistroCompra(nomeCli.value, quantidade.value, 
-                        formaPagamento.value, status.value);
+    
+    if (alvo === 'cadastro')postVendas(nomeCli.value, produto.value, 
+        quantidade.value, formaPagamento.value, status.value);
                     
-    if (alvo === 'update')updateStatusCliente(nomeCli.value, quantidade.value, 
-                                    formaPagamento.value, status.value);
+    if (alvo === 'update')updateStatusCliente(nomeCli.value, produto.value,
+        quantidade.value, formaPagamento.value, status.value);
+
     linparInputs();
     qVendas(+quantidade.value);
+}
+
+function capiturarDadosProdutos(alvo) {
+    const descricao = document.querySelector('.input-descricao');
+    const valor = document.querySelector('.input-valor');
+    
+    if (alvo === 'cadastro')postProdutos(descricao.value, valor.value);
+                    
+    if (alvo === 'update')updateStatusCliente(descricao.value, valor.value);
+    
+    linparInputs();
 }
 
 function getCliente(key) {
@@ -128,13 +169,20 @@ function getKey(element) {
 document.addEventListener('click', element => {
     const abaClicada = element.target;
 
-    if (abaClicada.classList.contains('btn-enviar')) capiturarDados('cadastro');
-    if (abaClicada.classList.contains('btn-editar')) capiturarDados('update');
-    if (abaClicada.classList.contains('btn-cadastro')) {
+    if (abaClicada.classList.contains('btn-cad-vendas')) capiturarDadosVendas('cadastro');
+    if (abaClicada.classList.contains('btn-edt-vendas')) capiturarDadosVendas('update');
+    if (abaClicada.classList.contains('btn-cad-produtos')) capiturarDadosProdutos('cadastro');
+    if (abaClicada.classList.contains('btn-edt-produtos')) capiturarDadosProdutos('update');
+    
+    if (abaClicada.classList.contains('btn-form-vendas')) {
         fecharMenu();
-        criaFormCadastro();
+        criaFormCadVendas();
     }
-    if (abaClicada.classList.contains('btn-relatorio')) {
+    if (abaClicada.classList.contains('btn-form-produtos')) {
+        fecharMenu();
+        criaFormCadProdutos();
+    }
+    if (abaClicada.classList.contains('btn-form-relatorio')) {
         fecharMenu();
         criaDiv();
         headerTable();

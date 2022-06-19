@@ -3,13 +3,11 @@ let val = 0;
 const clientesDevedores = [];
 
 export function linparInputs() {
-    const nomeCli = document.querySelector('.input-nome');
-    const quantidade = document.querySelector('.input-quantidade');
-    const formaPagamento = document.querySelector('.input-forma-pagamento');
-
-    nomeCli.value = '';
-    quantidade.value = '';
-    formaPagamento.value = '';
+    const input = document.querySelectorAll('.input');
+    input.forEach(valor => {
+        valor.value = '';
+    })
+    
 }
 
 export function criaDiv() {
@@ -50,18 +48,20 @@ function criaTitulo(titulo, classe) {
 
 function criaTituloMenu() {
     const titulos = criaTabela('titulos-menu');
-    const registrarVenda = criaTitulo('Registrar venda', 'btn-cadastro');
-    const visualizarVendas = criaTitulo('Visualizar vendas', 'btn-relatorio');
+    const registrarVenda = criaTitulo('Registrar venda', 'btn-form-vendas');
+    const visualizarVendas = criaTitulo('Visualizar vendas', 'btn-form-relatorio');
+    const cadastroProduto = criaTitulo('Cadastro de produtos', 'btn-form-produtos');
 
     titulos.appendChild(registrarVenda);
     titulos.appendChild(visualizarVendas);
+    titulos.appendChild(cadastroProduto);
 
     return titulos
 }
 
 export function abrirMenu() {
     const menu = document.querySelector('.menu');
-    menu.style.marginRight = 0;
+    menu.style.marginLeft = 0;
     menu.style.transitionDuration = '1s';
     
     menu.appendChild(criaBtnFecharMenu());
@@ -75,7 +75,7 @@ export function fecharMenu() {
     const menuTitulos = document.querySelector('.titulos-menu');
     menuTitulos.remove();
     const menu = document.querySelector('.menu');
-    menu.style.marginRight = '-1000%';
+    menu.style.marginLeft = '-3000px';
     menu.style.transitionDuration = '1s';    
 }
 
@@ -91,51 +91,87 @@ function criaLinhaHorizontal() {
 }
 
 export function criaCheckBox() {
-    const elementos = ['Dinheiro:', 'Pix:', 'Fiado:'];
-    const divCheckbox = document.createElement('div');
+    const divContent = criaTabela('div-checkbox');
+    const elementos = ['Cone:', 'Bolo de pote:', 'Torta olandesa:', 'Bolachas:'];
     elementos.forEach(el => {
         const label = document.createElement('label');
         label.textContent = el;
         const formaPagamento = document.createElement('input');
         formaPagamento.setAttribute('type', 'checkbox');
         formaPagamento.classList.add('checkbox');
-        divCheckbox.appendChild(label);
-        divCheckbox.appendChild(formaPagamento);
+        divContent.appendChild(label);
+        divContent.appendChild(formaPagamento);
     })
-    divCheckbox.classList.add('div-checkbox');
 
-    return divCheckbox;
+    return divContent;
 }
 
-export function criaFormCadastro() {
-    //const formaPagamento = criaCheckBox();
+export function criaFormCadVendas() {
     const body = document.querySelector('.container-main');
     const divCentro = criaDiv(body);
 
     const nomeCli = document.createElement('input');
-    nomeCli.classList.add('input-nome')
+    nomeCli.classList.add('input-nome');
+    nomeCli.classList.add('input');
     nomeCli.setAttribute('placeholder', 'Nome do Cliente');
 
+    const produto = document.createElement('input');
+    produto.classList.add('input-produto');
+    produto.classList.add('input');
+    produto.setAttribute('placeholder', 'Produto');
+
     const quantidade = document.createElement('input');
-    quantidade.classList.add('input-quantidade')
+    quantidade.classList.add('input-quantidade');
+    quantidade.classList.add('input');
     quantidade.setAttribute('placeholder', 'Quantidade');
 
     const formaPagamento = document.createElement('input');
     formaPagamento.classList.add('input-forma-pagamento');
+    formaPagamento.classList.add('input');
     formaPagamento.setAttribute('placeholder', 'Forma de pagamento');
 
     const inputStatus = document.createElement('input');
     inputStatus.classList.add('input-status');
+    inputStatus.classList.add('input');
     inputStatus.setAttribute('placeholder', 'Status');
 
     const btnEnviar = document.createElement('button');
     btnEnviar.classList.add('btn-enviar');
+    btnEnviar.classList.add('btn-cad-vendas')
     btnEnviar.innerHTML = 'Enviar';
 
     divCentro.appendChild(nomeCli);
+    divCentro.appendChild(produto);
     divCentro.appendChild(quantidade);
     divCentro.appendChild(formaPagamento);
     divCentro.appendChild(inputStatus);
+    divCentro.appendChild(btnEnviar);
+
+    body.appendChild(divCentro);
+}
+
+export function criaFormCadProdutos() {
+    const body = document.querySelector('.container-main');
+    const divCentro = criaDiv(body);
+
+    const descricao = document.createElement('input');
+    descricao.classList.add('input-descricao');
+    descricao.classList.add('input');
+    descricao.setAttribute('placeholder', 'Descrição');
+
+    const valor = document.createElement('input');
+    valor.classList.add('input-valor');
+    valor.classList.add('input');
+    valor.setAttribute('placeholder', 'R$ 0.00');
+    valor.setAttribute('type', 'number');
+
+    const btnEnviar = document.createElement('button');
+    btnEnviar.classList.add('btn-enviar');
+    btnEnviar.classList.add('btn-cad-produtos');
+    btnEnviar.innerHTML = 'Enviar';
+
+    divCentro.appendChild(descricao);
+    divCentro.appendChild(valor);
     divCentro.appendChild(btnEnviar);
 
     body.appendChild(divCentro);
