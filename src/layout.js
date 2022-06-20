@@ -163,7 +163,6 @@ export function criaFormCadProdutos() {
     valor.classList.add('input-valor');
     valor.classList.add('input');
     valor.setAttribute('placeholder', 'R$ 0.00');
-    valor.setAttribute('type', 'number');
 
     const btnEnviar = document.createElement('button');
     btnEnviar.classList.add('btn-enviar');

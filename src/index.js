@@ -166,6 +166,7 @@ function getKey(element) {
     getCliente(Key);
 }
 
+
 document.addEventListener('click', element => {
     const abaClicada = element.target;
 
@@ -180,7 +181,7 @@ document.addEventListener('click', element => {
     }
     if (abaClicada.classList.contains('btn-form-produtos')) {
         fecharMenu();
-        criaFormCadProdutos();
+        criaFormCadProdutos();          
     }
     if (abaClicada.classList.contains('btn-form-relatorio')) {
         fecharMenu();
