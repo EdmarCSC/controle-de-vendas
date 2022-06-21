@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import './style.css';
+
 import { linparInputs, criaFormCadVendas, criaFormCadProdutos, criaFormUpdate, 
         imprimeDados, headerTable, criaDiv, qVendas,
         clienteDevedor, abrirMenu, fecharMenu } from './layout.js';
@@ -24,10 +25,11 @@ let dClienteOfUp;
 let dProdutoOfUp;
 
 
-function postVendas(nome, quantidade, formaPagamento, status) {
+function postVendas(nome, produto, quantidade, formaPagamento, status) {
     const db = getDatabase(app);
     push(ref(db, 'clientes/'), {
         nomeCli: nome,
+        produto: produto,
         quantidade: quantidade,
         formaPagamento: formaPagamento,
         status: status,
@@ -44,11 +46,12 @@ function postProdutos(descricao, valor) {
     }); 
 }
 
-function updateStatusCliente(name, quantidade, fPagamento, status) {
+function updateStatusCliente(name, produto, quantidade, fPagamento, status) {
   const db = getDatabase();
 
   const postData = {
     nomeCli: name,
+    produto: produto,
     quantidade: quantidade,
     formaPagamento: fPagamento,
     status: status,

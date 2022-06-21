@@ -134,7 +134,7 @@ h1 {
 .linha-grid,
 .header-table {
     display: grid;
-    grid-template-columns: 0.1fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-columns: 0.1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     padding: 2px;
 }
 
@@ -238,7 +238,7 @@ hr {
 .input-descricao,
 .input-valor,
 .btn-enviar,
-.btn-editar 
+.btn-editar, 
 .div-checkbox {
     margin-top: 25px;
 }

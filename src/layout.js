@@ -1,3 +1,5 @@
+import IMask from 'imask';
+
 const body = document.querySelector('.container-main');
 let val = 0;
 const clientesDevedores = [];
@@ -174,10 +176,12 @@ export function criaFormCadProdutos() {
     divCentro.appendChild(btnEnviar);
 
     body.appendChild(divCentro);
+
+    inputMask();
 }
 
 export function headerTable() {
-    const titleHeader = ['codigo', 'Nome', 'Quant.', 'Pag.', 'Data', 'Status'];
+    const titleHeader = ['codigo', 'Nome', 'Prod.', 'Quant.', 'Pag.', 'Data', 'Status'];
     const hr = criaTabela('header-table');
 
     titleHeader.forEach(el => {
@@ -207,24 +211,29 @@ export function imprimeDados(element, childSnapshot) {
     nome.innerHTML = element[2];
     colNome.appendChild(nome);
 
+    const colProduto = criaTabela('coluna-grid');
+    const produto = document.createElement('p');
+    produto.innerHTML = element[3];
+    colProduto.appendChild(produto);
+
     const colQuantidade = criaTabela('coluna-grid');
     const quantidade = document.createElement('p');
-    quantidade.innerHTML = element[3];
+    quantidade.innerHTML = element[1];
     colQuantidade.appendChild(quantidade);
 
     const colFormaPagamento = criaTabela('coluna-grid');
     const formaPagamento = document.createElement('p');
-    formaPagamento.innerHTML = element[1];
+    formaPagamento.innerHTML = element[0];
     colFormaPagamento.appendChild(formaPagamento);
 
     const colStatus = criaTabela('coluna-grid');
     const status = document.createElement('p');
-    status.innerHTML = element[0];
+    status.innerHTML = element[4];
     colStatus.appendChild(status);
 
     const colData = criaTabela('coluna-grid');
     const data = document.createElement('p');
-    data.innerHTML = element[4];
+    data.innerHTML = element[5];
     colData.appendChild(data);
 
     linha.appendChild(key);
@@ -249,6 +258,11 @@ export function criaFormUpdate(dadosCliente) {
     nomeCli.setAttribute('placeholder', 'Nome do Cliente');
     nomeCli.value = dadosCliente.nomeCli;
 
+    const produto = document.createElement('input');
+    produto.classList.add('input-produto')
+    produto.setAttribute('placeholder', 'produto');
+    produto.value = dadosCliente.produto;
+
     const quantidade = document.createElement('input');
     quantidade.classList.add('input-quantidade')
     quantidade.setAttribute('placeholder', 'Quantidade');
@@ -266,9 +280,11 @@ export function criaFormUpdate(dadosCliente) {
 
     const btnEnviar = document.createElement('button');
     btnEnviar.classList.add('btn-editar');
+    btnEnviar.classList.add('btn-edt-vendas');
     btnEnviar.innerHTML = 'Editar';
 
     divCentro.appendChild(nomeCli);
+    divCentro.appendChild(produto);
     divCentro.appendChild(quantidade);
     divCentro.appendChild(formaPagamento);
     divCentro.appendChild(inputStatus);
@@ -299,4 +315,25 @@ export function clienteDevedor(status) {
     if (status != 'Pago') {
         clientesDevedores.push(status);
     }
+}
+
+function inputMask() {
+    const inputValor = document.querySelector('.input-valor');
+
+    var numberMask = IMask(inputValor, {
+        mask: Number,  // enable number mask
+      
+        // other options are optional with defaults below
+        scale: 2,  // digits after point, 0 for integers
+        signed: false,  // disallow negative
+        thousandsSeparator: '.',  // any single char
+        padFractionalZeros: true,  // if true, then pads zeros at end to the length of scale
+        normalizeZeros: true,  // appends or removes zeros at ends
+        radix: ',',  // fractional delimiter
+        mapToRadix: ['.'],  // symbols to process as radix
+      
+        // additional number interval options (e.g.)
+        min: -10000,
+        max: 10000
+      });
 }
