@@ -181,7 +181,7 @@ export function criaFormCadProdutos() {
 }
 
 export function headerTable() {
-    const titleHeader = ['codigo', 'Nome', 'Prod.', 'Quant.', 'Pag.', 'Data', 'Status'];
+    const titleHeader = ['codigo', 'Nome', 'Prod.', 'Quant.', 'Pag.', 'Status', 'Data'];
     const hr = criaTabela('header-table');
 
     titleHeader.forEach(el => {
@@ -218,26 +218,27 @@ export function imprimeDados(element, childSnapshot) {
 
     const colQuantidade = criaTabela('coluna-grid');
     const quantidade = document.createElement('p');
-    quantidade.innerHTML = element[1];
+    quantidade.innerHTML = element[4];
     colQuantidade.appendChild(quantidade);
 
     const colFormaPagamento = criaTabela('coluna-grid');
     const formaPagamento = document.createElement('p');
-    formaPagamento.innerHTML = element[0];
+    formaPagamento.innerHTML = element[1];
     colFormaPagamento.appendChild(formaPagamento);
 
     const colStatus = criaTabela('coluna-grid');
     const status = document.createElement('p');
-    status.innerHTML = element[4];
+    status.innerHTML = element[5];
     colStatus.appendChild(status);
 
     const colData = criaTabela('coluna-grid');
     const data = document.createElement('p');
-    data.innerHTML = element[5];
+    data.innerHTML = element[0];
     colData.appendChild(data);
 
     linha.appendChild(key);
     linha.appendChild(colNome);
+    linha.appendChild(colProduto);
     linha.appendChild(colQuantidade);
     linha.appendChild(colFormaPagamento);
     linha.appendChild(colStatus);

@@ -133,8 +133,8 @@ function getDados(valorChamada) {
             const childData = Object.values(childSnapshot.val());
             if (valorChamada === 'pageLoad') {
                 histVendas.push(childData);
-                qVendas(+childData[3]);
-                clienteDevedor(childData[4]);
+                qVendas(+childData[4]);
+                clienteDevedor(childData[5]);
                 return
             }
             imprimeDados(childData, childSnapshot.key);
