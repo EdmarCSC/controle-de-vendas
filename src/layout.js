@@ -284,12 +284,18 @@ export function criaFormUpdate(dadosCliente) {
     btnEnviar.classList.add('btn-edt-vendas');
     btnEnviar.innerHTML = 'Editar';
 
+    const btnExcluir = document.createElement('button');
+    btnExcluir.classList.add('btn-excluir');
+    btnExcluir.classList.add('btn-exc-vendas');
+    btnExcluir.innerHTML = 'Excluir';
+
     divCentro.appendChild(nomeCli);
     divCentro.appendChild(produto);
     divCentro.appendChild(quantidade);
     divCentro.appendChild(formaPagamento);
     divCentro.appendChild(inputStatus);
     divCentro.appendChild(btnEnviar);
+    divCentro.appendChild(btnExcluir);
 
     body.appendChild(divCentro);
 }

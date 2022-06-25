@@ -217,6 +217,7 @@ hr {
 .input-valor,
 .btn-enviar,
 .btn-editar,
+.btn-excluir,
 .div-checkbox {
     width: 90%;
     max-width: 400px;
@@ -228,8 +229,14 @@ hr {
 }
 
 .btn-enviar,
-.btn-editar {
+.btn-editar,
+.btn-excluir {
     color: aliceblue;
+}
+
+.btn-excluir {
+    background-color: crimson;
+    border: 1px solid crimson;
 }
 
 .input-quantidade,
@@ -239,7 +246,8 @@ hr {
 .input-descricao,
 .input-valor,
 .btn-enviar,
-.btn-editar, 
+.btn-editar,
+.btn-excluir, 
 .div-checkbox {
     margin-top: 25px;
 }
@@ -271,3 +279,7 @@ li {
 .btn-editar:active {
     background-color: rgb(103, 105, 223);
 }
+
+.btn-excluir:active {
+    background-color: rgb(186, 17, 51);
+} 

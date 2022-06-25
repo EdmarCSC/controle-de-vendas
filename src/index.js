@@ -6,7 +6,7 @@ import { linparInputs, criaFormCadVendas, criaFormCadProdutos, criaFormUpdate,
         clienteDevedor, abrirMenu, fecharMenu } from './layout.js';
 
 import { initializeApp } from 'firebase/app'; 
-import { getDatabase, ref, push, onValue, get, child, update } from 'firebase/database';
+import { getDatabase, ref, push, onValue, get, child, update, remove } from 'firebase/database';
 
 const firebaseConfig = {
     apiKey: "AIzaSyC76YqX7DUKjJcl2WtzoDwugLw4a2CFXGA",
@@ -63,6 +63,25 @@ function updateStatusCliente(name, produto, quantidade, fPagamento, status) {
   updates['clientes/' + idCli ] = postData;
 
   return update(ref(db), updates);
+}
+
+function excluirData() {
+    const db = getDatabase();
+
+    const postData = {
+      nomeCli: null,
+      produto: null,
+      quantidade: null,
+      formaPagamento: null,
+      status: null,
+      data: null
+    };
+    const newPostKey = push(child(ref(db), 'posts')).key;
+  
+    const updates = {};
+    updates['clientes/' + idCli ] = postData;
+  
+    return update(ref(db), updates);
 }
 
 function updateProdutos(descricao, valor) {
@@ -198,6 +217,7 @@ document.addEventListener('click', element => {
         (abaClicada.classList.contains('coluna-grid')) ) getKey(abaClicada.firstChild);
     if (abaClicada.classList.contains('line-menu')) abrirMenu(abaClicada);
     if (abaClicada.classList.contains('line-btn-fechar')) fecharMenu();
+    if (abaClicada.classList.contains('btn-excluir')) excluirData();
 })
 
 window.onload = function() {
