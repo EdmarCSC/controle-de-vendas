@@ -20,13 +20,13 @@
     height: auto;
 }
 
-.cabecalho,
-.rodape {
+.header,
+.footer {
     width: 100%;
     height: 50px;
 }
 
-.cabecalho {
+.header {
     display: flex;
     position: fixed;
     justify-content: space-between;
@@ -45,7 +45,7 @@ h1 {
     margin: auto;
 }
 
-.cabecalho > h1 {
+.header > h1 {
     text-align: center;
 }
 
@@ -71,7 +71,7 @@ h1 {
     height: 100vh;
     position: absolute;
     margin-left: -3000px;
-    z-index: 4;
+    z-index: 6;
     background-color: rgba(67, 69, 171, 0.882);
 }
 
@@ -107,11 +107,12 @@ h1 {
     height: 50px;
 }
 
-.caixa-centro {
+.container-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 140px;
+    align-items: center;
+    margin-top: 150px;
     width: 88%;
     height: auto;
     overflow-y: scroll;
@@ -123,19 +124,17 @@ h1 {
     color: rgba(58, 28, 87, 0.362); 
 }
 
-.caixa-grid {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+.container-grid {
+    margin: auto;
     width: 100%;
     height: auto;
 }
 
-.linha-grid,
+.row-grid,  
 .header-table {
     display: grid;
-    align-items: center;
-    grid-template-columns: 0.1fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
+    align-self: center;
+    grid-template-columns: .1% 1fr 1fr .5fr 1fr 1fr 1fr;
     padding: 2px;
 }
 
@@ -150,13 +149,14 @@ h2 {
     width: 90%;
     border-radius: 3px;
     color: aliceblue;
-    align-content: center;
+    justify-items: center;
     height: 20px;
     padding: 2px;
     background-color: rgb(116, 118, 232);
 }
 
-.linha-grid {
+.row-grid {
+    grid-template-areas: "key nome prod quant pag stat dat";
     border-bottom: 1px solid rgba(137, 43, 226, 0.362);
     border-radius: 3px;
     column-gap: 10px;
@@ -164,18 +164,46 @@ h2 {
     background-color: rgba(116, 180, 232, 0.045);
 }
 
-.linha-grid:hover {
+.row-grid:hover {
     background-color: rgba(116, 180, 232, 0.101);
 }
 
-.linha-grid:active {
+.row-grid:active {
     background-color: rgba(116, 180, 232, 0.139);
 }
 
-.coluna-grid {
+.colum-grid {
     align-self: flex-end;
     text-align: center;
     overflow: hidden;
+}
+
+.key {
+    grid-area: key;
+}
+
+.name {
+    grid-area: nome;
+}
+
+.prod {
+    grid-area: prod;
+}
+
+.quant {
+    grid-area: quant;
+}
+
+.pag {
+    grid-area: pag;
+}
+
+.stat {
+    grid-area: stat;
+}
+
+.dat {
+    grid-area: dat;
 }
 
 .key,
@@ -202,7 +230,7 @@ hr {
 .input-produto,
 .input-descricao,
 .input-valor,
-.input-status,
+.status,
 .div-checkbox {
     color: rgba(116, 118, 232, 0.63);
     place-content: rgba(116, 118, 232, 0.63);
@@ -212,7 +240,7 @@ hr {
 .input-produto,
 .input-quantidade,
 .input-forma-pagamento,
-.input-status,
+.status,
 .input-descricao,
 .input-valor,
 .btn-enviar,
@@ -242,7 +270,7 @@ hr {
 .input-quantidade,
 .input-produto,
 .input-forma-pagamento,
-.input-status,
+.status,
 .input-descricao,
 .input-valor,
 .btn-enviar,

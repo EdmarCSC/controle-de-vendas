@@ -1,12 +1,13 @@
 import _ from 'lodash';
 import './style.css';
 
-import { linparInputs, criaFormCadVendas, criaFormCadProdutos, criaFormUpdate, 
-        imprimeDados, headerTable, criaDiv, qVendas,
-        clienteDevedor, abrirMenu, fecharMenu } from './layout.js';
+import { cleanInputs, createFormVendas, createFormProdutos, criaFormUpdate,
+        createForm, printData, headerTable, qVendas, clienteDevedor, abrirMenu, 
+        fecharMenu } from './layout.js';
 
 import { initializeApp } from 'firebase/app'; 
-import { getDatabase, ref, push, onValue, get, child, update, remove } from 'firebase/database';
+import { getDatabase, ref, push, onValue, get, child, update,
+        query, orderByChild, orderByValue, limitToLast, endBefore } from 'firebase/database';
 
 const firebaseConfig = {
     apiKey: "AIzaSyC76YqX7DUKjJcl2WtzoDwugLw4a2CFXGA",
@@ -105,27 +106,27 @@ function capiturarDadosVendas(alvo) {
     const produto = document.querySelector('.input-produto')
     const quantidade = document.querySelector('.input-quantidade');
     const formaPagamento = document.querySelector('.input-forma-pagamento');
-    const status = document.querySelector('.input-status');
-    
+    const status = document.querySelector('.status');
+
     if (alvo === 'cadastro')postVendas(nomeCli.value, produto.value, 
         quantidade.value, formaPagamento.value, status.value);
                     
     if (alvo === 'update')updateStatusCliente(nomeCli.value, produto.value,
         quantidade.value, formaPagamento.value, status.value);
 
-    linparInputs();
+    cleanInputs();
     qVendas(+quantidade.value);
 }
 
 function capiturarDadosProdutos(alvo) {
     const descricao = document.querySelector('.input-descricao');
     const valor = document.querySelector('.input-valor');
-    
+
     if (alvo === 'cadastro')postProdutos(descricao.value, valor.value);
                     
     if (alvo === 'update')updateStatusCliente(descricao.value, valor.value);
     
-    linparInputs();
+    cleanInputs();
 }
 
 function getCliente(key) {
@@ -156,11 +157,14 @@ function getDados(valorChamada) {
                 clienteDevedor(childData[5]);
                 return
             }
-            imprimeDados(childData, childSnapshot.key);
+            console.log(childData, childSnapshot.key)
+            printData(childData, childSnapshot.key);
         });
     }, {
             onlyOnce: true
     });
+   
+    
 }
 
 function addZero (zero) {
@@ -194,32 +198,35 @@ document.addEventListener('click', element => {
 
     if (abaClicada.classList.contains('btn-cad-vendas')) capiturarDadosVendas('cadastro');
     if (abaClicada.classList.contains('btn-edt-vendas')) capiturarDadosVendas('update');
-    if (abaClicada.classList.contains('btn-cad-produtos')) capiturarDadosProdutos('cadastro');
-    if (abaClicada.classList.contains('btn-edt-produtos')) capiturarDadosProdutos('update');
+    if (abaClicada.classList.contains('btn-cad-produto')) capiturarDadosProdutos('cadastro');
+    if (abaClicada.classList.contains('btn-edt-produto')) capiturarDadosProdutos('update');
     
     if (abaClicada.classList.contains('btn-form-vendas')) {
         fecharMenu();
-        criaFormCadVendas();
+        createFormVendas();
     }
     if (abaClicada.classList.contains('btn-form-produtos')) {
         fecharMenu();
-        criaFormCadProdutos();          
+        createFormProdutos();          
     }
     if (abaClicada.classList.contains('btn-form-relatorio')) {
         fecharMenu();
-        criaDiv();
+        createForm();
         headerTable();
         getDados();
     }
-    if (abaClicada.classList.contains('checkbox'))  console.log(abaClicada.value);
-    if (abaClicada.classList.contains('caixa-grid') ||
-        (abaClicada.classList.contains('linha-grid')) ||
-        (abaClicada.classList.contains('coluna-grid')) ) getKey(abaClicada.firstChild);
+   // if (abaClicada.classList.contains('checkbox'))  console.log(abaClicada.value);
+    if (abaClicada.classList.contains('container-rel') ||
+        (abaClicada.classList.contains('row-grid')) ||
+        (abaClicada.classList.contains('colum-grid')) ) getKey(abaClicada.firstChild);
     if (abaClicada.classList.contains('line-menu')) abrirMenu(abaClicada);
     if (abaClicada.classList.contains('line-btn-fechar')) fecharMenu();
-    if (abaClicada.classList.contains('btn-excluir')) excluirData();
+    if (abaClicada.classList.contains('btn-excluir')) {
+        excluirData();
+        cleanInputs();
+    }
 })
 
 window.onload = function() {
-    getDados('pageLoad');
+    //getDados('pageLoad');
 };

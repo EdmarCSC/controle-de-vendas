@@ -1,34 +1,61 @@
 import IMask from 'imask';
 
 const body = document.querySelector('.container-main');
-let val = 0;
 const clientesDevedores = [];
+const inputsFormProduto = ['descrição', 'valor']
 
-export function linparInputs() {
-    const input = document.querySelectorAll('.input');
-    input.forEach(valor => {
-        valor.value = '';
-    })
-    
-}
+let val = 0;
 
-export function criaDiv() {
-    const caixa = document.querySelector('.caixa-centro');
+export function createForm() {
+    const form = document.querySelector('.container-form');
     const header = document.querySelector('.header-table');
 
-    if (caixa != null) caixa.remove();
+    if (form != null) form.remove();
     if (header != null) header.remove();
 
     const criaCaixa = document.createElement('div');
-    criaCaixa.classList.add('caixa-centro');
+    criaCaixa.classList.add('container-form');
+    
     body.appendChild(criaCaixa);
+   
     return criaCaixa;
 }
 
+function createDiv(cls) {
+    const criaCaixa = document.createElement('div');
+    criaCaixa.classList.add(cls);
+    return criaCaixa;
+}
+
+function createInput(cls, att) {
+    const input = document.createElement('input');
+    input.classList.add(cls);
+    input.classList.add('input');
+    input.setAttribute('placeholder', att);
+    return input;
+}
+
+function createButton(cls1, cls2, titulo) {
+    const button = document.createElement('button');
+    button.classList.add(cls1);
+    button.classList.add(cls2);
+    button.innerHTML = titulo;
+    return button
+}
+
+function createP(element, cls) {
+    const p = document.createElement('p');
+    p.classList.add(cls);
+    p.innerHTML = element;
+    return p
+}
+
+
+
 function criaBtnFecharMenu() {
-    const btnFechar = criaTabela('btn-fechar');
-    const line1 = criaTabela('line-btn-fechar');
-    const line2 = criaTabela('line-btn-fechar');
+    const btnFechar = createDiv('btn-fechar');
+    const line1 = createDiv('line-btn-fechar');
+    const line2 = createDiv('line-btn-fechar');
 
     line1.style.transform = 'rotate(45deg)';
     line2.style.transform = 'rotate(-45deg) translate(6px, -7px)';
@@ -49,7 +76,7 @@ function criaTitulo(titulo, classe) {
 }
 
 function criaTituloMenu() {
-    const titulos = criaTabela('titulos-menu');
+    const titulos = createDiv('titulos-menu');
     const registrarVenda = criaTitulo('Registrar venda', 'btn-form-vendas');
     const visualizarVendas = criaTitulo('Visualizar vendas', 'btn-form-relatorio');
     const cadastroProduto = criaTitulo('Cadastro de produtos', 'btn-form-produtos');
@@ -81,111 +108,62 @@ export function fecharMenu() {
     menu.style.transitionDuration = '1s';    
 }
 
-function criaTabela(classe) {
-    const criaCaixa = document.createElement('div');
-    criaCaixa.classList.add(classe);
-    return criaCaixa;
-}
 
 function criaLinhaHorizontal() {
     const linha = document.createElement('hr');
     return linha
 }
 
-export function criaCheckBox() {
-    const divContent = criaTabela('div-checkbox');
-    const elementos = ['Cone:', 'Bolo de pote:', 'Torta olandesa:', 'Bolachas:'];
-    elementos.forEach(el => {
-        const label = document.createElement('label');
-        label.textContent = el;
-        const formaPagamento = document.createElement('input');
-        formaPagamento.setAttribute('type', 'checkbox');
-        formaPagamento.classList.add('checkbox');
-        divContent.appendChild(label);
-        divContent.appendChild(formaPagamento);
-    })
+export function createFormVendas() {
+    const containerForm = createForm();
 
-    return divContent;
+    const inputs = ['input-nome', 'input-produto', 'input-quantidade', 'input-forma-pagamento', 'status'];
+    const attribute = ['Nome de cliente', 'Produto', 'Qauntidade', 'Forma de pagamento', 'status'];
+    const propertButton = ['btn-cad-vendas', 'btn-enviar', 'Enviar'];
+    
+    let count = 0;
+
+    inputs.forEach(element => {
+        const input = createInput(element, attribute[count]);
+        containerForm.appendChild(input);
+        count++;
+    });
+
+    const btnEnviar = createButton(propertButton[0], propertButton[1], propertButton[2])
+    containerForm.appendChild(btnEnviar);
+
+    body.appendChild(containerForm);
 }
 
-export function criaFormCadVendas() {
-    const body = document.querySelector('.container-main');
-    const divCentro = criaDiv(body);
+export function createFormProdutos() {
+    const containerForm = createForm();
+    
+    const inputs = ['input-descricao', 'input-valor'];
+    const attribute = ['Descrição', 'R$ 0.00'];
+    const propertButton = ['btn-cad-produto', 'btn-enviar', 'Enviar'];
+    
+    let count = 0;
 
-    const nomeCli = document.createElement('input');
-    nomeCli.classList.add('input-nome');
-    nomeCli.classList.add('input');
-    nomeCli.setAttribute('placeholder', 'Nome do Cliente');
+    inputs.forEach(element => {
+        const input = createInput(element, attribute[count]);
+        containerForm.appendChild(input);
+        count++;
+    });
 
-    const produto = document.createElement('input');
-    produto.classList.add('input-produto');
-    produto.classList.add('input');
-    produto.setAttribute('placeholder', 'Produto');
+    const btnEnviar = createButton(propertButton[0], propertButton[1], propertButton[2])
+    containerForm.appendChild(btnEnviar);
 
-    const quantidade = document.createElement('input');
-    quantidade.classList.add('input-quantidade');
-    quantidade.classList.add('input');
-    quantidade.setAttribute('placeholder', 'Quantidade');
-
-    const formaPagamento = document.createElement('input');
-    formaPagamento.classList.add('input-forma-pagamento');
-    formaPagamento.classList.add('input');
-    formaPagamento.setAttribute('placeholder', 'Forma de pagamento');
-
-    const inputStatus = document.createElement('input');
-    inputStatus.classList.add('input-status');
-    inputStatus.classList.add('input');
-    inputStatus.setAttribute('placeholder', 'Status');
-
-    const btnEnviar = document.createElement('button');
-    btnEnviar.classList.add('btn-enviar');
-    btnEnviar.classList.add('btn-cad-vendas')
-    btnEnviar.innerHTML = 'Enviar';
-
-    divCentro.appendChild(nomeCli);
-    divCentro.appendChild(produto);
-    divCentro.appendChild(quantidade);
-    divCentro.appendChild(formaPagamento);
-    divCentro.appendChild(inputStatus);
-    divCentro.appendChild(btnEnviar);
-
-    body.appendChild(divCentro);
-}
-
-export function criaFormCadProdutos() {
-    const body = document.querySelector('.container-main');
-    const divCentro = criaDiv(body);
-
-    const descricao = document.createElement('input');
-    descricao.classList.add('input-descricao');
-    descricao.classList.add('input');
-    descricao.setAttribute('placeholder', 'Descrição');
-
-    const valor = document.createElement('input');
-    valor.classList.add('input-valor');
-    valor.classList.add('input');
-    valor.setAttribute('placeholder', 'R$ 0.00');
-
-    const btnEnviar = document.createElement('button');
-    btnEnviar.classList.add('btn-enviar');
-    btnEnviar.classList.add('btn-cad-produtos');
-    btnEnviar.innerHTML = 'Enviar';
-
-    divCentro.appendChild(descricao);
-    divCentro.appendChild(valor);
-    divCentro.appendChild(btnEnviar);
-
-    body.appendChild(divCentro);
-
+    body.appendChild(containerForm);
     inputMask();
 }
 
 export function headerTable() {
-    const titleHeader = ['codigo', 'Nome', 'Prod.', 'Quant.', 'Pag.', 'Status', 'Data'];
-    const hr = criaTabela('header-table');
+    const titleHeader = ['codigo', 'Nome', 'Prod.', 'Quant.', 'Pag.', 
+                        'Status', 'Data'];
+    const hr = createDiv('header-table');
 
     titleHeader.forEach(el => {
-        const cl = criaTabela('coluna-grid');
+        const cl = createDiv('colum-grid');
         cl.classList.add(el)
         cl.innerHTML = el;
         hr.appendChild(cl);
@@ -194,88 +172,64 @@ export function headerTable() {
     body.appendChild(hr);
 }
 
-export function imprimeDados(element, childSnapshot) {
-    const caixa = document.querySelector('.caixa-centro');
+export function printData(element, childSnapshot) {
+    const cls = ['dat', 'pag', 'name', 'prod', 'quant', 'stat'];
+    const containerForm = document.querySelector('.container-form');
+    const table = createDiv('container-grid');
+    const rowTable = createDiv('row-grid');
     const linhaHorizontal = criaLinhaHorizontal();
-    const tabela = criaTabela('caixa-grid');
-    const linha = criaTabela('linha-grid');
-
-    const key = criaTabela('coluna-grid');
-    const keyValue = document.createElement('p');
-    keyValue.classList.add('key');
-    keyValue.innerHTML = childSnapshot;
+    
+    const key = createDiv('colum-grid');
+    const keyValue = createP(childSnapshot, 'key');
     key.appendChild(keyValue);
+    rowTable.appendChild(key);
 
-    const colNome = criaTabela('coluna-grid');
-    const nome = document.createElement('p');
-    nome.innerHTML = element[2];
-    colNome.appendChild(nome);
+    let cont = 0;    
+    element.forEach(el => {
+        const columGrid = createDiv('colum-grid');
+        const data = createP(el);
+        columGrid.appendChild(data);
+        columGrid.classList.add(cls[cont]);
+        rowTable.appendChild(columGrid);
+        cont++;
+    });
 
-    const colProduto = criaTabela('coluna-grid');
-    const produto = document.createElement('p');
-    produto.innerHTML = element[3];
-    colProduto.appendChild(produto);
-
-    const colQuantidade = criaTabela('coluna-grid');
-    const quantidade = document.createElement('p');
-    quantidade.innerHTML = element[4];
-    colQuantidade.appendChild(quantidade);
-
-    const colFormaPagamento = criaTabela('coluna-grid');
-    const formaPagamento = document.createElement('p');
-    formaPagamento.innerHTML = element[1];
-    colFormaPagamento.appendChild(formaPagamento);
-
-    const colStatus = criaTabela('coluna-grid');
-    const status = document.createElement('p');
-    status.innerHTML = element[5];
-    colStatus.appendChild(status);
-
-    const colData = criaTabela('coluna-grid');
-    const data = document.createElement('p');
-    data.innerHTML = element[0];
-    colData.appendChild(data);
-
-    linha.appendChild(key);
-    linha.appendChild(colNome);
-    linha.appendChild(colProduto);
-    linha.appendChild(colQuantidade);
-    linha.appendChild(colFormaPagamento);
-    linha.appendChild(colStatus);
-    linha.appendChild(colData);
-
-    tabela.appendChild(linha);
-    caixa.appendChild(tabela);
-    caixa.appendChild(linhaHorizontal);
-    body.appendChild(caixa);
-
+    table.appendChild(rowTable);
+    containerForm.appendChild(table);
+    containerForm.appendChild(linhaHorizontal);
+    body.appendChild(containerForm);
 }
 
 export function criaFormUpdate(dadosCliente) {
-    const divCentro = criaDiv();
+    const divCentro = createForm();
 
     const nomeCli = document.createElement('input');
-    nomeCli.classList.add('input-nome')
+    nomeCli.classList.add('input-nome');
+    nomeCli.classList.add('input');
     nomeCli.setAttribute('placeholder', 'Nome do Cliente');
     nomeCli.value = dadosCliente.nomeCli;
 
     const produto = document.createElement('input');
-    produto.classList.add('input-produto')
+    produto.classList.add('input-produto');
+    produto.classList.add('input');
     produto.setAttribute('placeholder', 'produto');
     produto.value = dadosCliente.produto;
 
     const quantidade = document.createElement('input');
-    quantidade.classList.add('input-quantidade')
+    quantidade.classList.add('input-quantidade');
+    quantidade.classList.add('input');
     quantidade.setAttribute('placeholder', 'Quantidade');
     quantidade.value = dadosCliente.quantidade;
 
     const formaPagamento = document.createElement('input');
     formaPagamento.classList.add('input-forma-pagamento');
+    formaPagamento.classList.add('input');
     formaPagamento.setAttribute('placeholder', 'Forma de pagamento');
     formaPagamento.value = dadosCliente.formaPagamento;
 
     const inputStatus = document.createElement('input');
-    inputStatus.classList.add('input-status');
+    inputStatus.classList.add('status');
+    inputStatus.classList.add('input');
     inputStatus.setAttribute('placeholder', 'Status');
     inputStatus.value = dadosCliente.status;
 
@@ -306,9 +260,9 @@ function calc(valor) {
 }
 
 export function qVendas(quantidade) {
-    const divComponent = criaDiv();
-    const divContent = criaTabela('div-cliente-devedor');
-    const divQVendas = criaTabela('q-vendas');
+    const divComponent = createForm();
+    const divContent = createDiv('div-cliente-devedor');
+    const divQVendas = createDiv('q-vendas');
     divQVendas.innerHTML = `Total de vendas: ${calc(quantidade)}`
     divContent.innerHTML = `Clientes em débito: ${clientesDevedores.length}`;
 
@@ -328,19 +282,23 @@ function inputMask() {
     const inputValor = document.querySelector('.input-valor');
 
     var numberMask = IMask(inputValor, {
-        mask: Number,  // enable number mask
+        mask: Number, 
+        scale: 2, 
+        signed: false,
+        thousandsSeparator: '.',
+        padFractionalZeros: true,
+        normalizeZeros: true,
+        radix: ',',
+        mapToRadix: ['.'],
       
-        // other options are optional with defaults below
-        scale: 2,  // digits after point, 0 for integers
-        signed: false,  // disallow negative
-        thousandsSeparator: '.',  // any single char
-        padFractionalZeros: true,  // if true, then pads zeros at end to the length of scale
-        normalizeZeros: true,  // appends or removes zeros at ends
-        radix: ',',  // fractional delimiter
-        mapToRadix: ['.'],  // symbols to process as radix
-      
-        // additional number interval options (e.g.)
         min: -10000,
         max: 10000
       });
+}
+export function cleanInputs() {
+        const input = document.querySelectorAll('.input');
+        input.forEach(valor => {
+            valor.value = '';
+        })
+        
 }
