@@ -118,6 +118,40 @@ h1 {
     overflow-y: scroll;
 }
 
+.input-nome {
+    order: 1;
+}
+
+.input-produto {
+    order: 2;
+}
+
+.input-quantidade {
+    order: 3;
+}
+
+.input-forma-pagamento {
+    order: 4;
+}
+
+.status {
+    order: 5;
+}
+
+.btn-enviar {
+    order: 6;
+}
+
+.btn-editar {
+    order: 6;
+}
+
+.btn-excluir {
+    order: 7;
+    background-color: crimson;
+    border: 1px solid crimson;
+}
+
 .q-vendas,
 .div-cliente-devedor {
     margin-bottom: 4px;
@@ -260,11 +294,6 @@ hr {
 .btn-editar,
 .btn-excluir {
     color: aliceblue;
-}
-
-.btn-excluir {
-    background-color: crimson;
-    border: 1px solid crimson;
 }
 
 .input-quantidade,

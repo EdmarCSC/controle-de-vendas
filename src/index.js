@@ -102,20 +102,21 @@ function updateProdutos(descricao, valor) {
   }
 
 function capiturarDadosVendas(alvo) {
-    const nomeCli = document.querySelector('.input-nome');
-    const produto = document.querySelector('.input-produto')
-    const quantidade = document.querySelector('.input-quantidade');
-    const formaPagamento = document.querySelector('.input-forma-pagamento');
-    const status = document.querySelector('.status');
+    const inputValue = [];
+    const inputs = document.querySelectorAll('.input');
 
-    if (alvo === 'cadastro')postVendas(nomeCli.value, produto.value, 
-        quantidade.value, formaPagamento.value, status.value);
+    inputs.forEach(v => {
+        inputValue.push(v.value);
+    });
+
+   if (alvo === 'cadastro')postVendas(inputValue[1], inputValue[2], inputValue[3], 
+        inputValue[0], inputValue[4]);
                     
-    if (alvo === 'update')updateStatusCliente(nomeCli.value, produto.value,
-        quantidade.value, formaPagamento.value, status.value);
+    if (alvo === 'update')updateStatusCliente(inputValue[1], inputValue[2], inputValue[3], 
+        inputValue[0], inputValue[4]);
 
     cleanInputs();
-    qVendas(+quantidade.value);
+    qVendas(+inputValue[3]);
 }
 
 function capiturarDadosProdutos(alvo) {

@@ -201,57 +201,31 @@ export function printData(element, childSnapshot) {
 }
 
 export function criaFormUpdate(dadosCliente) {
-    const divCentro = createForm();
+    const dataCli = Object.values(dadosCliente);
+    const containerForm = createForm();
 
-    const nomeCli = document.createElement('input');
-    nomeCli.classList.add('input-nome');
-    nomeCli.classList.add('input');
-    nomeCli.setAttribute('placeholder', 'Nome do Cliente');
-    nomeCli.value = dadosCliente.nomeCli;
+    const inputs = ['input-forma-pagamento', 'input-nome', 'input-produto', 'input-quantidade', 'status'];
+    const attribute = ['Nome de cliente', 'Produto', 'Qauntidade', 'Forma de pagamento', 'status'];
+    const propertBtnEnv = ['btn-edt-vendas', 'btn-editar', 'Editar'];
+    const propertBtnExc = ['btn-exc-vendas', 'btn-excluir', 'Excluir'];
+    
+    let count = 1;
 
-    const produto = document.createElement('input');
-    produto.classList.add('input-produto');
-    produto.classList.add('input');
-    produto.setAttribute('placeholder', 'produto');
-    produto.value = dadosCliente.produto;
+    inputs.forEach(element => {
+        const input = createInput(element, attribute[count]);
+        input.value = dataCli[count];
+        containerForm.appendChild(input);
+        count++;
+    });
 
-    const quantidade = document.createElement('input');
-    quantidade.classList.add('input-quantidade');
-    quantidade.classList.add('input');
-    quantidade.setAttribute('placeholder', 'Quantidade');
-    quantidade.value = dadosCliente.quantidade;
+    const btnEnviar = createButton(propertBtnEnv[0], propertBtnEnv[1], propertBtnEnv[2])
+    containerForm.appendChild(btnEnviar);
+    const btnExcluir = createButton(propertBtnExc[0], propertBtnExc[1], propertBtnExc[2])
+    
+    containerForm.appendChild(btnEnviar);
+    containerForm.appendChild(btnExcluir);
 
-    const formaPagamento = document.createElement('input');
-    formaPagamento.classList.add('input-forma-pagamento');
-    formaPagamento.classList.add('input');
-    formaPagamento.setAttribute('placeholder', 'Forma de pagamento');
-    formaPagamento.value = dadosCliente.formaPagamento;
-
-    const inputStatus = document.createElement('input');
-    inputStatus.classList.add('status');
-    inputStatus.classList.add('input');
-    inputStatus.setAttribute('placeholder', 'Status');
-    inputStatus.value = dadosCliente.status;
-
-    const btnEnviar = document.createElement('button');
-    btnEnviar.classList.add('btn-editar');
-    btnEnviar.classList.add('btn-edt-vendas');
-    btnEnviar.innerHTML = 'Editar';
-
-    const btnExcluir = document.createElement('button');
-    btnExcluir.classList.add('btn-excluir');
-    btnExcluir.classList.add('btn-exc-vendas');
-    btnExcluir.innerHTML = 'Excluir';
-
-    divCentro.appendChild(nomeCli);
-    divCentro.appendChild(produto);
-    divCentro.appendChild(quantidade);
-    divCentro.appendChild(formaPagamento);
-    divCentro.appendChild(inputStatus);
-    divCentro.appendChild(btnEnviar);
-    divCentro.appendChild(btnExcluir);
-
-    body.appendChild(divCentro);
+    body.appendChild(containerForm);
 }
 
 function calc(valor) {
