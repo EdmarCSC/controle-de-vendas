@@ -24,7 +24,7 @@ const histVendas = [];
 let idCli;
 let dClienteOfUp;
 let dProdutoOfUp;
-
+let elDevedor;
 
 function postVendas(nome, produto, quantidade, formaPagamento, status) {
     const db = getDatabase(app);
@@ -63,6 +63,8 @@ function updateStatusCliente(name, produto, quantidade, fPagamento, status) {
   const updates = {};
   updates['clientes/' + idCli ] = postData;
 
+  elDevedor.classList.remove('devedor');
+
   return update(ref(db), updates);
 }
 
@@ -76,9 +78,7 @@ function excluirData() {
       formaPagamento: null,
       status: null,
       data: null
-    };
-    const newPostKey = push(child(ref(db), 'posts')).key;
-  
+    };  
     const updates = {};
     updates['clientes/' + idCli ] = postData;
   
@@ -109,7 +109,7 @@ function capiturarDadosVendas(alvo) {
         inputValue.push(v.value);
     });
 
-   if (alvo === 'cadastro')postVendas(inputValue[1], inputValue[2], inputValue[3], 
+    if (alvo === 'cadastro')postVendas(inputValue[1], inputValue[2], inputValue[3], 
         inputValue[0], inputValue[4]);
                     
     if (alvo === 'update')updateStatusCliente(inputValue[1], inputValue[2], inputValue[3], 
@@ -158,14 +158,11 @@ function getDados(valorChamada) {
                 clienteDevedor(childData[5]);
                 return
             }
-            console.log(childData, childSnapshot.key)
             printData(childData, childSnapshot.key);
         });
     }, {
             onlyOnce: true
-    });
-   
-    
+    });    
 }
 
 function addZero (zero) {
@@ -219,7 +216,11 @@ document.addEventListener('click', element => {
    // if (abaClicada.classList.contains('checkbox'))  console.log(abaClicada.value);
     if (abaClicada.classList.contains('container-rel') ||
         (abaClicada.classList.contains('row-grid')) ||
-        (abaClicada.classList.contains('colum-grid')) ) getKey(abaClicada.firstChild);
+        (abaClicada.classList.contains('colum-grid'))) {
+            getKey(abaClicada.firstChild);
+            elDevedor = abaClicada;
+        }
+
     if (abaClicada.classList.contains('line-menu')) abrirMenu(abaClicada);
     if (abaClicada.classList.contains('line-btn-fechar')) fecharMenu();
     if (abaClicada.classList.contains('btn-excluir')) {
@@ -229,5 +230,5 @@ document.addEventListener('click', element => {
 })
 
 window.onload = function() {
-    //getDados('pageLoad');
+    getDados('pageLoad');
 };

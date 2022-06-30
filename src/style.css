@@ -253,6 +253,10 @@ hr {
     background-color: rgba(116, 179, 232, 1);;
 }
 
+.devedor {
+    background-color: rgba(247, 39, 39, 0.265);
+}
+
 .input-descricao,
 .input-nome {
     margin-top: 20px;

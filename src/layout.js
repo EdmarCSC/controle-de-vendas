@@ -190,6 +190,9 @@ export function printData(element, childSnapshot) {
         const data = createP(el);
         columGrid.appendChild(data);
         columGrid.classList.add(cls[cont]);
+        if (el === 'Fiado') {
+            rowTable.classList.add('devedor');
+        };
         rowTable.appendChild(columGrid);
         cont++;
     });
@@ -238,7 +241,7 @@ export function qVendas(quantidade) {
     const divContent = createDiv('div-cliente-devedor');
     const divQVendas = createDiv('q-vendas');
     divQVendas.innerHTML = `Total de vendas: ${calc(quantidade)}`
-    divContent.innerHTML = `Clientes em débito: ${clientesDevedores.length}`;
+    divContent.innerHTML = `Clientes em débito: ${clientesDevedores.length + 1}`;
 
     divComponent.appendChild(divQVendas);
     divComponent.appendChild(divContent);
