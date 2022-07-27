@@ -50,8 +50,6 @@ function createP(element, cls) {
     return p
 }
 
-
-
 function criaBtnFecharMenu() {
     const btnFechar = createDiv('btn-fechar');
     const line1 = createDiv('line-btn-fechar');
@@ -88,30 +86,29 @@ function criaTituloMenu() {
     return titulos
 }
 
-export function abrirMenu() {
-    const menu = document.querySelector('.menu');
-    menu.style.marginLeft = 0;
-    menu.style.transitionDuration = '1s';
-    
+export function createMenu() {
+    const menu = createDiv('menu');
     menu.appendChild(criaBtnFecharMenu());
     menu.appendChild(criaTituloMenu());
-
+    body.appendChild(menu);
 }
 
 export function fecharMenu() {
-    const btnMenu = document.querySelector('.btn-fechar');
-    btnMenu.remove();
-    const menuTitulos = document.querySelector('.titulos-menu');
-    menuTitulos.remove();
     const menu = document.querySelector('.menu');
-    menu.style.marginLeft = '-3000px';
-    menu.style.transitionDuration = '1s';    
+    menu.remove();   
 }
 
 
 function criaLinhaHorizontal() {
     const linha = document.createElement('hr');
     return linha
+}
+
+function createdFocus() {
+    const input = document.querySelectorAll('.input');
+    input.forEach(el => {
+        if ( el.classList.contains('input-nome') || el.classList.contains('input-descricao'))  el.focus();
+    });
 }
 
 export function createFormVendas() {
@@ -133,6 +130,7 @@ export function createFormVendas() {
     containerForm.appendChild(btnEnviar);
 
     body.appendChild(containerForm);
+    createdFocus();
 }
 
 export function createFormProdutos() {
@@ -155,6 +153,7 @@ export function createFormProdutos() {
 
     body.appendChild(containerForm);
     inputMask();
+    createdFocus();
 }
 
 export function headerTable() {
@@ -229,6 +228,7 @@ export function criaFormUpdate(dadosCliente) {
     containerForm.appendChild(btnExcluir);
 
     body.appendChild(containerForm);
+    createdFocus();
 }
 
 function calc(valor) {

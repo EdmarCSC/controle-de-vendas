@@ -52,6 +52,9 @@ h1 {
 .btn-menu {
     height: auto;
     margin-right: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .line-menu,
@@ -63,14 +66,18 @@ h1 {
 }
 
 .btn-fechar {
+    position: relative;
+    z-index: 2;
+    width: 50px;
     margin: 30px;
+    padding: 10px;
+    cursor: pointer;
 }
 
 .menu {
+    position: absolute;
     width: 100%;
     height: 100vh;
-    position: absolute;
-    margin-left: -3000px;
     z-index: 6;
     background-color: rgba(67, 69, 171, 0.882);
 }
@@ -82,7 +89,7 @@ h1 {
     margin: auto;
     width: 80%;
     height: 20%;
-
+    cursor: pointer;
 }
 
 .titulo-menu {

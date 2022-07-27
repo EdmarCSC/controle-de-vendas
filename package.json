@@ -1,7 +1,7 @@
 {
   "name": "controle-de-vendas",
   "version": "1.0.0",
-  "description": "",
+  "description": "ONTROLE DE VENDAS, é um app criado somente com HTML, CSS e js com a finalidade de registrar um histórco de vendas. mo nome do cliente, produto adquirido, quantidade adquirida, data da venda e a forma de pagamento se foi FIADO, PIX ou DINHEIRO.",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,12 +17,21 @@
     "imask": "^6.4.2",
     "style-loader": "^3.3.1",
     "vanilla-masker": "^1.2.0",
-    "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.1"
   },
   "dependencies": {
     "firebase": "^9.8.2",
     "lodash": "^4.17.21"
-  }
+  },
+  "main": "webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdmarCSC/controle-de-vendas.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EdmarCSC/controle-de-vendas/issues"
+  },
+  "homepage": "https://github.com/EdmarCSC/controle-de-vendas#readme"
 }

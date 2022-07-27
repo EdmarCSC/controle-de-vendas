@@ -2,7 +2,7 @@ import _ from 'lodash';
 import './style.css';
 
 import { cleanInputs, createFormVendas, createFormProdutos, criaFormUpdate,
-        createForm, printData, headerTable, qVendas, clienteDevedor, abrirMenu, 
+        createForm, printData, headerTable, qVendas, clienteDevedor, createMenu, 
         fecharMenu } from './layout.js';
 
 import { initializeApp } from 'firebase/app'; 
@@ -99,7 +99,7 @@ function updateProdutos(descricao, valor) {
     updates['clientes/' + idCli ] = postData;
   
     return update(ref(db), updates);
-  }
+}
 
 function capiturarDadosVendas(alvo) {
     const inputValue = [];
@@ -200,8 +200,8 @@ document.addEventListener('click', element => {
     if (abaClicada.classList.contains('btn-edt-produto')) capiturarDadosProdutos('update');
     
     if (abaClicada.classList.contains('btn-form-vendas')) {
+        createFormVendas();    
         fecharMenu();
-        createFormVendas();
     }
     if (abaClicada.classList.contains('btn-form-produtos')) {
         fecharMenu();
@@ -214,6 +214,7 @@ document.addEventListener('click', element => {
         getDados();
     }
    // if (abaClicada.classList.contains('checkbox'))  console.log(abaClicada.value);
+   
     if (abaClicada.classList.contains('container-rel') ||
         (abaClicada.classList.contains('row-grid')) ||
         (abaClicada.classList.contains('colum-grid'))) {
@@ -221,8 +222,12 @@ document.addEventListener('click', element => {
             elDevedor = abaClicada;
         }
 
-    if (abaClicada.classList.contains('line-menu')) abrirMenu(abaClicada);
-    if (abaClicada.classList.contains('line-btn-fechar')) fecharMenu();
+    if (abaClicada.classList.contains('line-menu') ||
+        abaClicada.classList.contains('btn-menu')) createMenu(abaClicada);
+
+    if (abaClicada.classList.contains('line-btn-fechar') || 
+        abaClicada.classList.contains('btn-fechar')) fecharMenu();
+
     if (abaClicada.classList.contains('btn-excluir')) {
         excluirData();
         cleanInputs();
